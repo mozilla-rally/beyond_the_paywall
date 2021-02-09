@@ -1,10 +1,10 @@
 {
-  "description": "A basic template for a Mozilla Rally Study.",
-  "author": "Mozilla",
+  "description": "Local News Demand Study",
+  "author": "Stanford GSB",
   "manifest_version": 2,
-  "name": "Rally Basic Study Template",
-  "version": "0.3.1",
-  "homepage_url": "https://github.com/mozilla-ion/ion-basic-study",
+  "name": "Local News Demand Study",
+  "version": "0.1",
+  "homepage_url": "https://github.com/bchivers-stanford/local_news_demand",
 
   "applications": {
     "gecko": {
