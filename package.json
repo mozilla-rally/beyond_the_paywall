@@ -1,6 +1,6 @@
 {
-  "name": "rally-study-template",
-  "version": "0.3.1",
+  "name": "local-news-demand",
+  "version": "0.1.1",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --config-enable-developer-mode",
@@ -32,17 +32,17 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "description": "This a basic template for a Rally study.",
+  "description": "This is the extension for Greg Martin's local news demand study.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mozilla-rally/study-template.git"
+    "url": "git+https://github.com/bchivers-stanford/local_news_demand.git"
   },
   "keywords": [],
-  "author": "Mozilla",
+  "author": "Stanford GSB",
   "license": "MPL-2.0",
   "private": true,
   "bugs": {
-    "url": "https://github.com/mozilla-rally/study-template/issues"
+    "url": "https://github.com/bchivers-stanford/local_news_demand/issues"
   },
-  "homepage": "https://github.com/mozilla-rally/study-template#readme"
+  "homepage": "https://github.com/bchivers-stanford/local_news_demand"
 }

@@ -6,12 +6,6 @@
   "version": "0.1",
   "homepage_url": "https://github.com/bchivers-stanford/local_news_demand",
 
-  "applications": {
-    "gecko": {
-      "id": "ion-basic-study@mozilla.org",
-      "strict_min_version": "77.0a1"
-    }
-  },
 
   "permissions": [],
 
