@@ -6,8 +6,18 @@
   "version": "0.1",
   "homepage_url": "https://github.com/bchivers-stanford/local_news_demand",
 
-
-  "permissions": [],
+  "permissions": [
+    "<all_urls>",
+    "idle",
+    "notifications",
+    "storage",
+    "tabs",
+    "unlimitedStorage",
+    "webRequest",
+    "alarms",
+    "telemetry",
+    "history"
+  ],
 
   "background": {
     "scripts": ["dist/background.js"]

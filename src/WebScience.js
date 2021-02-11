@@ -6,5 +6,5 @@
 import * as Utilities from "./WebScience.Utilities.js"
 export { Utilities }
 
-//import * as Measurements from "./WebScience.Measurements.js"
-//export { Measurements }
+import * as Measurements from "./WebScience.Measurements.js"
+export { Measurements }

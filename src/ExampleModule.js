@@ -7,4 +7,21 @@ export function initialize() {
     var studyPaths = WebScience.Utilities.Matching.getStudyPaths();
     console.debug("study paths:");
     console.debug(studyPaths)
+
+    // Configure navigation collection
+    WebScience.Measurements.PageNavigation.runStudy({
+        domains: studyPaths.destinationPaths,
+        trackUserAttention: true
+    });
+
+    // Configure link exposure collection
+    WebScience.Utilities.LinkResolution.initialize();
+    WebScience.Measurements.LinkExposure.runStudy({
+        domains: studyPaths.destinationPaths,
+        privateWindows : false,
+    });
+
+    WebScience.Measurements.PageDepth.runStudy({
+        domains: studyPaths.destinationPaths,
+    });
 }
