@@ -11,6 +11,7 @@ import * as Matching from "../Utilities/Matching.js"
 import * as PageEvents from "../Utilities/PageEvents.js"
 import * as LinkExposure from "./LinkExposure.js"
 import * as PageDepth from "./PageDepth.js"
+import * as ArticleContents from "./ArticleContents.js"
 
 
 
@@ -30,6 +31,27 @@ const recentVisitThreshold = 3000;
 
 var untrackedPageVisits = null;
 
+/**
+ * Callback function for article contents result
+ * @param {Object} result result object
+ */
+async function contentResults(result) {
+    if (currentTabInfo[result.tabID] && currentTabInfo[result.tabID].url == result.url) {
+        currentTabInfo[result.tabID].contents[result.name] = result.contents;
+    } 
+    if (!urlMatcher.testUrl(result.url)) { 
+        return;
+    }
+    await storage.startsWith(result.url).then(async (prevVisits) => {
+        for (let key in prevVisits) {
+            if (prevVisits[key].tabId == result.tabId && 
+                Math.abs(result.timestamp - prevVisits[key].visitStart) < recentVisitThreshold) {
+                prevVisits[key].contents[result.name] = result.contents;
+                await storage.set(key, prevVisits[key]);
+            }
+        }
+    });
+}
 async function depthResults(result) {
     if (result.maxRelativeScrollDepth == null) return;
     if (currentTabInfo[result.tabId] && currentTabInfo[result.tabId].url == result.url) {
@@ -72,6 +94,7 @@ export async function runStudy({
     untrackedPageVisits = await (new Storage.Counter("WebScience.Measurements.PageNavigation.untrackedPageVisits")).initialize();
 
     PageDepth.registerListener(depthResults);
+    ArticleContents.registerListener(contentResults);
 
     // Listen for metadata of the visited pages from content script
     // Use a unique identifier for each webpage the user visits that has a matching domain

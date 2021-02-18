@@ -59,10 +59,10 @@ export async function runStudy({
     await browser.contentScripts.register({
         matches: ["*://*/*"],
         js: [{
-            file: "/WebScience/Measurements/content-scripts/utils.js"
+            file: "/src/WebScience/Measurements/content-scripts/utils.js"
         },
             {
-                file: "/WebScience/Measurements/content-scripts/linkExposure.js"
+                file: "/src/WebScience/Measurements/content-scripts/linkExposure.js"
             }
         ],
         runAt: "document_idle"

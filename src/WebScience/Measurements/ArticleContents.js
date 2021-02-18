@@ -12,7 +12,7 @@ import * as Storage from "../Utilities/Storage.js"
 import * as Matching from "../Utilities/Matching.js"
 import * as Messaging from "../Utilities/Messaging.js"
 
-const debugLog = Debugging.getDebuggingLog("Measurements.PageDepth");
+const debugLog = Debugging.getDebuggingLog("Measurements.ArticleContents");
 
 /**
  * A KeyValueStorage object for data associated with the study.
@@ -37,10 +37,10 @@ export async function runStudy({
         return;    
     initialized = true;
 
-    storage = await (new Storage.KeyValueStorage("WebScience.Measurements.PageDepth")).initialize();
+    storage = await (new Storage.KeyValueStorage("WebScience.Measurements.ArticleContents")).initialize();
 
     // Use a unique identifier for each webpage the user visits that has a matching domain
-    var nextPageIdCounter = await (new Storage.Counter("WebScience.Measurements.PageDepth.nextPageId")).initialize();
+    var nextPageIdCounter = await (new Storage.Counter("WebScience.Measurements.ArticleContents.nextPageId")).initialize();
 
     // Build the URL matching set for content scripts
     var contentScriptMatches = Matching.createUrlMatchPatternArray(domains, true);
@@ -48,13 +48,19 @@ export async function runStudy({
     // Register the content script for measuring maximum scroll depth
     await browser.contentScripts.register({
         matches: contentScriptMatches,
-        js: [{
-            file: "/src/WebScience/Measurements/content-scripts/pageDepth.js"
-        }]
+        js: [
+        {
+            file: "/src/WebScience/Measurements/content-scripts/Readability.js"
+        },
+        {
+            file: "/src/WebScience/Measurements/content-scripts/page-content.js"
+        }
+        ],
+        runAt: "document_idle"
     });
 
     // Handle page depth events
-    Messaging.registerListener("WebScience.pageDepth", async (depthInfo, sender, sendResponse) => {
+    Messaging.registerListener("WebScience.articleContent", async (depthInfo, sender, sendResponse) => {
         var pageId = await nextPageIdCounter.getAndIncrement();
         depthInfo.url = Storage.normalizeUrl(sender.url);
         depthInfo.tabId = sender.tab.id;
@@ -63,8 +69,9 @@ export async function runStudy({
         debugLog(JSON.stringify(depthInfo));
     }, {
         type: "string",
-        maxRelativeScrollDepth: "number",
-        loadTime: "number"
+        url : "string",
+        title : "string",
+        text : "string"
     });
 }
 

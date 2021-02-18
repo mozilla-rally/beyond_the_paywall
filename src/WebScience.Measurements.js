@@ -6,6 +6,9 @@ export { PageNavigation }
 import * as LinkExposure from "./WebScience/Measurements/LinkExposure.js"
 export { LinkExposure }
 
+import * as ArticleContents from "./WebScience/Measurements/ArticleContents.js"
+export { ArticleContents }
+
 //import * as SocialMediaLinkSharing from "../WebScience/Measurements/SocialMediaLinkSharing.js"
 //export { SocialMediaLinkSharing }
 

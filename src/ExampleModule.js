@@ -24,4 +24,8 @@ export function initialize() {
     WebScience.Measurements.PageDepth.runStudy({
         domains: studyPaths.destinationPaths,
     });
+
+    WebScience.Measurements.ArticleContents.runStudy({
+        domains: studyPaths.destinationPaths,
+    });
 }
