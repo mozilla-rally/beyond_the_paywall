@@ -60,6 +60,22 @@ export function createUrlMatchPatternArray(domains, matchSubdomains = true) {
     return matchPatterns;
 }
 
+/**
+ * Generate an array of match patterns for matching a URL against a set of domains.
+ * Will match http and https protocols.
+ * @param {string[]} domains - The set of domains to match against.
+ * @param {boolean} [matchSubdomains=true] - Whether to match subdomains of domains in the set.
+ * @returns {string[]} An array of match patterns.
+ */
+export function createUrlMatchPatternArrayWithPath(domains, matchSubdomains = true) {
+    var matchPatterns = [ ];
+    for (const domain of domains) {
+        matchPatterns.push("http://" + ( matchSubdomains ? "*." : "" ) + domain + "/*/*");
+        matchPatterns.push("https://" + ( matchSubdomains ? "*." : "" ) + domain + "/*/*");
+    }
+    return matchPatterns;
+}
+
 export function getStudyPaths() {
     var studyPaths = {};
     studyPaths.domains = new UrlMatcher(destinationDomains);

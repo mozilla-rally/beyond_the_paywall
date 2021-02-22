@@ -43,7 +43,7 @@ export async function runStudy({
     var nextPageIdCounter = await (new Storage.Counter("WebScience.Measurements.ArticleContents.nextPageId")).initialize();
 
     // Build the URL matching set for content scripts
-    var contentScriptMatches = Matching.createUrlMatchPatternArray(domains, true);
+    var contentScriptMatches = Matching.createUrlMatchPatternArrayWithPath(domains, true);
 
     // Register the content script for measuring maximum scroll depth
     await browser.contentScripts.register({
