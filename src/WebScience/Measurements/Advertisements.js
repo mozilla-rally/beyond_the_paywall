@@ -4,7 +4,7 @@
  * Note: we will likely replace this module when we update the
  * PageNavigation and PageEvents modules.
  * 
- * @module WebScience.Measurements.ArticleContents
+ * @module WebScience.Measurements.Advertisements
  */
 
 import * as Debugging from "../Utilities/Debugging.js"
@@ -12,7 +12,7 @@ import * as Storage from "../Utilities/Storage.js"
 import * as Matching from "../Utilities/Matching.js"
 import * as Messaging from "../Utilities/Messaging.js"
 
-const debugLog = Debugging.getDebuggingLog("Measurements.ArticleContents");
+const debugLog = Debugging.getDebuggingLog("Measurements.Advertisements");
 
 /**
  * A KeyValueStorage object for data associated with the study.
@@ -25,7 +25,7 @@ var initialized = false;
 var listeners = [];
 
 /**
- * Start an article contents study.
+ * Start an advertisements study. 
  * @param {Object} options - A set of options for the study.
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
  */
@@ -37,30 +37,30 @@ export async function runStudy({
         return;    
     initialized = true;
 
-    storage = await (new Storage.KeyValueStorage("WebScience.Measurements.ArticleContents")).initialize();
+    storage = await (new Storage.KeyValueStorage("WebScience.Measurements.Advertisements")).initialize();
 
     // Use a unique identifier for each webpage the user visits that has a matching domain
-    var nextPageIdCounter = await (new Storage.Counter("WebScience.Measurements.ArticleContents.nextPageId")).initialize();
+    var nextPageIdCounter = await (new Storage.Counter("WebScience.Measurements.Advertisements.nextPageId")).initialize();
 
     // Build the URL matching set for content scripts
-    var contentScriptMatches = Matching.createUrlMatchPatternArrayWithPath(domains, true);
+    var contentScriptMatches = Matching.createUrlMatchPatternArray(domains, true);
 
     // Register the content script for measuring maximum scroll depth
     await browser.contentScripts.register({
         matches: contentScriptMatches,
         js: [
         {
-            file: "/src/WebScience/Measurements/content-scripts/Readability.js"
+            file: "/src/ad_css_selectors.js"
         },
         {
-            file: "/src/WebScience/Measurements/content-scripts/page-content.js"
+            file: "/src/WebScience/Measurements/content-scripts/page-ads.js"
         }
         ],
         runAt: "document_idle"
     });
 
     // Handle page depth events
-    Messaging.registerListener("WebScience.articleContent", async (depthInfo, sender, sendResponse) => {
+    Messaging.registerListener("WebScience.advertisements", async (depthInfo, sender, sendResponse) => {
         var pageId = await nextPageIdCounter.getAndIncrement();
         depthInfo.url = Storage.normalizeUrl(sender.url);
         depthInfo.tabId = sender.tab.id;
@@ -70,8 +70,7 @@ export async function runStudy({
     }, {
         type: "string",
         url : "string",
-        title : "string",
-        text : "string"
+        ads : "object",
     });
 }
 

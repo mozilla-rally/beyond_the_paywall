@@ -9,6 +9,9 @@ export { LinkExposure }
 import * as ArticleContents from "./WebScience/Measurements/ArticleContents.js"
 export { ArticleContents }
 
+import * as Advertisements from "./WebScience/Measurements/Advertisements.js"
+export { Advertisements }
+
 //import * as SocialMediaLinkSharing from "../WebScience/Measurements/SocialMediaLinkSharing.js"
 //export { SocialMediaLinkSharing }
 

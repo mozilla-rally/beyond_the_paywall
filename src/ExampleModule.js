@@ -28,4 +28,8 @@ export function initialize() {
     WebScience.Measurements.ArticleContents.runStudy({
         domains: studyPaths.destinationPaths,
     });
+
+    WebScience.Measurements.Advertisements.runStudy({
+        domains: studyPaths.destinationPaths,
+    });
 }
