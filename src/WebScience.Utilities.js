@@ -3,6 +3,11 @@
 // Note that the order of module imports matters, since utility
 // modules can depend on other utility modules
 
+
+// Brian Chivers - 3/19/2021
+// This is copied from the Princeton Study, with some modules commented out
+// And the advertisements module added
+
 import * as Debugging from "./WebScience/Utilities/Debugging.js"
 export { Debugging }
 

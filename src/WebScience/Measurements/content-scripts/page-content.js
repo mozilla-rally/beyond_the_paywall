@@ -4,7 +4,9 @@
  */
 // Function encapsulation to maintain unique variable scope for each content script
 
-// workerIds is defined by injected code
+//Brian Chivers, 3/19/2021
+// This content script is slightly modified (maybe not even at all) by Princeton's script
+// This version grabs the URL, title, and text from a page to save
 
 (
     async function () {

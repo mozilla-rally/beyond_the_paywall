@@ -1,8 +1,7 @@
 /**
- * This module measures scroll depth for webpages on specific domains.
+ * This module stores Article Contents from pages
  * 
- * Note: we will likely replace this module when we update the
- * PageNavigation and PageEvents modules.
+ * Brian Chivers, 3/19/2021
  * 
  * @module WebScience.Measurements.ArticleContents
  */
@@ -45,7 +44,7 @@ export async function runStudy({
     // Build the URL matching set for content scripts
     var contentScriptMatches = Matching.createUrlMatchPatternArrayWithPath(domains, true);
 
-    // Register the content script for measuring maximum scroll depth
+    // Register the content script for storing Article Contents
     await browser.contentScripts.register({
         matches: contentScriptMatches,
         js: [

@@ -2,14 +2,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+
+// Copied from Mozilla Rally's study template
+//Lightly modified by Brian Chivers for Greg Martin's experiment
+
 import "webextension-polyfill";
 
 import Rally from "@mozilla/rally";
 
 // Example: import a module.
 import {
-  initialize as exampleInitialize
-} from './ExampleModule';
+  initialize 
+} from './StudyModule';
 
 const rally = new Rally();
 rally.initialize(
@@ -28,8 +32,7 @@ rally.initialize(
   __ENABLE_DEVELOPER_MODE__,
 ).then(resolve => {
   // Initialize the study and start it.
-  // Example: initialize the example module.
-  exampleInitialize();
+  initialize();
 }, reject =>{
   // Do not start the study in this case. Something
   // went wrong.

@@ -3,6 +3,8 @@
 // Note that the order of module imports matters, since the study
 // modules depend on the utility modules
 
+// Brian Chivers - copied from the Princeton study, no changes made
+
 import * as Utilities from "./WebScience.Utilities.js"
 export { Utilities }
 
