@@ -8,14 +8,12 @@
 
 (
     async function () {
-
-      console.log(document.body)//.getBoundingClientRect())
-
       /**
        * @constant
        * How often (in milliseconds) to check maximum page scroll depth
        */
-      const updateInterval = 100000;
+      const updateInterval = 1500;
+      const retryAttempts = 3;
       /**
        * Send page content to a background script (e.g., a classifier)
        * @param {string} document - HTML doc for href and referrer
@@ -26,22 +24,28 @@
           browser.runtime.sendMessage({
               type: "WebScience.advertisements",
               url : document.location.href,
-              body: {height: document.body.clientHeight,
-                    width: document.body.clientWidth},
+              body: {clientHeight: document.body.clientHeight,
+                    clientWidth: document.body.clientWidth},
               ads: ads,
               context: {
                 timestamp: Date.now(),
                 referrer: ''+document.referrer,
               }
+
           });
+          data_sent=true;
       }
 
       var ads = [];
+      var ad_length = [];
+      var parsed = false;
+      var data_sent = false;
 
       function parseDocumentForAds (evt) {
-
+        console.log("parsing doc!")
         // Grab all elements using CSS selectors, and filter out only DIVs and Iframes
         let current_ads = [];
+        let working_css_selectors = [];
         for (var i = 0; i < adCssSelectors.length; ++i) {
           try {
             let ad = document.querySelectorAll(adCssSelectors[i]);
@@ -52,6 +56,7 @@
                 //console.log(this_ad.getBoundingClientRect())
                 if(this_ad.tagName=="DIV" || this_ad.tagName=="IFRAME") {
                   if(this_ad.clientHeight!=0 && this_ad.clientWidth!=0 ){
+                    working_css_selectors.push(adCssSelectors[i])
                     current_ads.push(this_ad)
                   }  
                 }
@@ -61,6 +66,7 @@
             console.log(err)
           }
         }
+        //console.log(working_css_selectors)
 
         // Go through list, and pull out only elements that are not parents
         let children = [];
@@ -94,25 +100,44 @@
         }
         
         unique_ads = ad_data.filter((v,i,a)=>a.findIndex(t=>(JSON.stringify(t) === JSON.stringify(v)))===i);
-        sendAdsToBackground(document,unique_ads)
+        ads = unique_ads;
+        ad_length.push(unique_ads.length);
+        if (parsed==false){
+          parsed = true;
+        }
+        console.log(children);
+        console.log("done parsing doc")
       }
 
       function findAds (evt) {
-        current_ad_length = ads.length
-        console.log("Current ads length: "+current_ad_length)
-        var intervalId = setInterval(parseDocumentForAds, updateInterval);
-        if (ads.length != current_ad_length){
-          current_ad_length = ads.length;
-          console.log("Current ads length: "+current_ad_length)
-          clearInterval(intervalId);
-          var intervalId = setInterval(parseDocumentForAds, updateInterval);
-        } else {
-          console.log("Interval has stopped")
+
+        function intervalFunc(evt) {
+          parseDocumentForAds(evt);
+          // if we've retried retryAttempt times
+          // And the last retryAttempt lengths are the same
+          // Stop the script and send the data.
+          if(ad_length.length>retryAttempts && 
+            ad_length.slice(Math.max(ad_length.length - retryAttempts, 1)).every((val, ind, arr) => val === arr[0])){
+            clearInterval(intervalId)
+            sendAdsToBackground(document, ads)
+          }
+        }
+        intervalId = setInterval(intervalFunc, updateInterval);
+        
+      }
+
+      function unload (evt){
+        if (parsed==false){
+          parseDocumentForAds(evt);
+        }
+        if(data_sent==false){
+          sendAdsToBackground(document, ads)
         }
       }
+
       // Set an interval to check the scroll depth
-      window.addEventListener ("load", parseDocumentForAds, false);
-      //window.addEventListener ("unload", sendAdsToBackground(document,ads), false);
+      window.addEventListener ("load", findAds, false);
+      window.addEventListener ("unload", unload, false);
 
 
     }
