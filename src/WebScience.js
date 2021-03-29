@@ -5,8 +5,8 @@
 
 // Brian Chivers - copied from the Princeton study, no changes made
 
-import * as Utilities from "./WebScience.Utilities.js"
-export { Utilities }
+import * as Utilities from './WebScience.Utilities.js'
+import * as Measurements from './WebScience.Measurements.js'
 
-import * as Measurements from "./WebScience.Measurements.js"
+export { Utilities }
 export { Measurements }

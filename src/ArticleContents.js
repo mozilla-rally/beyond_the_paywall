@@ -1,0 +1,92 @@
+/**
+ * This module stores Article Contents from pages
+ *
+ * Brian Chivers, 3/19/2021
+ *
+ * @module WebScience.Measurements.ArticleContents
+ */
+
+import * as WebScience from './WebScience.js'
+
+const debugLog = WebScience.Utilities.Debugging.getDebuggingLog('Measurements.ArticleContents')
+
+/**
+ * A KeyValueStorage object for data associated with the study.
+ * @type {Object}
+ * @private
+ */
+let storage = null
+let initialized = false
+
+let listeners = []
+
+/**
+ * Start an article contents study.
+ * @param {Object} options - A set of options for the study.
+ * @param {string[]} [options.domains=[]] - The domains of interest for the study.
+ */
+export async function runStudy ({
+    domains = []
+}) {
+
+  if (initialized){
+    return   
+  }
+  initialized = true
+
+  storage = await (new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.ArticleContents')).initialize()
+
+  // Use a unique identifier for each webpage the user visits that has a matching domain
+  let nextPageIdCounter = await (new WebScience.Utilities.Storage.Counter('WebScience.Measurements.ArticleContents.nextPageId')).initialize()
+
+  // Build the URL matching set for content scripts
+  let contentScriptMatches = WebScience.Utilities.Matching.createUrlMatchPatternArrayWithPath(domains, true)
+
+  // Register the content script for storing Article Contents
+  await browser.contentScripts.register({
+    matches: contentScriptMatches,
+    js: [
+      {
+        file: '/src/WebScience/Measurements/content-scripts/Readability.js'
+      },
+      {
+        file: '/src/content-scripts/page-content.js'
+      }
+    ],
+    runAt: 'document_idle'
+  })
+
+  // Handle page depth events
+  WebScience.Utilities.Messaging.registerListener('WebScience.articleContent', async (depthInfo, sender, sendResponse) => {
+    let pageId = await nextPageIdCounter.getAndIncrement()
+    depthInfo.url = WebScience.Utilities.Storage.normalizeUrl(sender.url)
+    depthInfo.tabId = sender.tab.id
+    for (let listener of listeners) { listener(depthInfo) }
+    storage.set(pageId.toString(), depthInfo)
+    debugLog(JSON.stringify(depthInfo))
+  }, {
+    type: 'string',
+    url: 'string',
+    title: 'string',
+    text: 'string'
+  })
+}
+
+/* Utilities */
+
+/**
+ * Retrieve the study data as an object. Note that this could be very
+ * slow if there is a large volume of study data.
+ * @returns {(Object|null)} - The study data, or `null` if no data
+ * could be retrieved.
+ */
+export async function getStudyDataAsObject () {
+    if (storage != null) {
+        return await storage.getContentsAsObject()
+    }
+    return null;
+}
+
+export function registerListener (listener) {
+    listeners.push(listener)
+}
