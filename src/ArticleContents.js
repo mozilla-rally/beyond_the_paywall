@@ -25,7 +25,7 @@ let listeners = []
  * @param {Object} options - A set of options for the study.
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
  */
-export async function runStudy ({
+export async function startMeasurement ({
     domains = []
 }) {
 
@@ -34,20 +34,20 @@ export async function runStudy ({
   }
   initialized = true
 
-  storage = await (new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.ArticleContents')).initialize()
+  storage = await new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.ArticleContents')
 
   // Use a unique identifier for each webpage the user visits that has a matching domain
   let nextPageIdCounter = await (new WebScience.Utilities.Storage.Counter('WebScience.Measurements.ArticleContents.nextPageId')).initialize()
 
   // Build the URL matching set for content scripts
-  let contentScriptMatches = WebScience.Utilities.Matching.createUrlMatchPatternArrayWithPath(domains, true)
+  let contentScriptMatches = domainsToMatchPatternsWithPath(domains, true)
 
   // Register the content script for storing Article Contents
   await browser.contentScripts.register({
     matches: contentScriptMatches,
     js: [
       {
-        file: '/src/WebScience/Measurements/content-scripts/Readability.js'
+        file: '/src/content-scripts/Readability.js'
       },
       {
         file: '/src/content-scripts/page-content.js'
@@ -59,7 +59,7 @@ export async function runStudy ({
   // Handle page depth events
   WebScience.Utilities.Messaging.registerListener('WebScience.articleContent', async (depthInfo, sender, sendResponse) => {
     let pageId = await nextPageIdCounter.getAndIncrement()
-    depthInfo.url = WebScience.Utilities.Storage.normalizeUrl(sender.url)
+    depthInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
     depthInfo.tabId = sender.tab.id
     for (let listener of listeners) { listener(depthInfo) }
     storage.set(pageId.toString(), depthInfo)
@@ -89,4 +89,21 @@ export async function getStudyDataAsObject () {
 
 export function registerListener (listener) {
     listeners.push(listener)
+}
+
+/**
+ * This is a copy from web-science matching.js
+ * But it adds a /* to the end, so that it only matches domains with paths
+ * i.e. matches sfchronicle.com/path/to/article
+ * Doesn't match sfchronicle.com (I don't want the text contents of the homepage)
+ * 
+ * Generates a set of match patterns for a set of domains. The match patterns will use the special
+ * "*" wildcard scheme (matching "http", "https", "ws", and "wss") and the special "/*" wildcard
+ * path (matching any path).
+ * @param {string[]} domains - The set of domains to match against.
+ * @param {boolean} [matchSubdomains=true] - Whether to match subdomains of domains in the set.
+ * @returns {string[]} Match patterns for the domains in the set.
+ */
+function domainsToMatchPatternsWithPath(domains, matchSubdomains = true) {
+  return domains.map(domain => { return `*://${matchSubdomains ? "*." : ""}${domain}/*/*` });
 }

@@ -24,7 +24,7 @@ let listeners = []
  * @param {Object} options - A set of options for the study.
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
  */
-export async function runStudy ({
+export async function startMeasurement ({
   domains = []
 }) {
   if (initialized) {
@@ -32,13 +32,13 @@ export async function runStudy ({
   }
   initialized = true
 
-  storage = await (new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.Advertisements')).initialize()
+  storage = await new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.Advertisements')
 
   // Use a unique identifier for each webpage the user visits that has a matching domain
   let nextPageIdCounter = await (new WebScience.Utilities.Storage.Counter('WebScience.Measurements.Advertisements.nextPageId')).initialize()
 
   // Build the URL matching set for content scripts
-  let contentScriptMatches = WebScience.Utilities.Matching.createUrlMatchPatternArray(domains, true);
+  let contentScriptMatches = WebScience.Utilities.Matching.domainsToMatchPatterns(domains, true);
 
   // Register the content script for measuring advertisement info
   // The CSS selectors file is needed to find ads on the page
@@ -58,7 +58,7 @@ export async function runStudy ({
   // Handle page depth events
   WebScience.Utilities.Messaging.registerListener('WebScience.advertisements', async (depthInfo, sender, sendResponse) => {
     let pageId = await nextPageIdCounter.getAndIncrement()
-    depthInfo.url = WebScience.Utilities.Storage.normalizeUrl(sender.url)
+    depthInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
     depthInfo.tabId = sender.tab.id
     for (var listener of listeners) { listener(depthInfo) }
       storage.set(pageId.toString(), depthInfo)

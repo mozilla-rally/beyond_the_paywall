@@ -47,5 +47,8 @@
   "bugs": {
     "url": "https://github.com/bchivers-stanford/local_news_demand/issues"
   },
-  "homepage": "https://github.com/bchivers-stanford/local_news_demand"
+  "homepage": "https://github.com/bchivers-stanford/local_news_demand",
+  "dependencies": {
+    "dexie": "^3.0.3"
+  }
 }

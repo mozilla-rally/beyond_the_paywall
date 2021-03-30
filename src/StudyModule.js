@@ -8,36 +8,30 @@
 import * as WebScience from './WebScience.js'
 import * as ArticleContents from './ArticleContents.js'
 import * as Advertisements from './Advertisements.js'
+import {destinationDomains} from './domains'
 
 export function initialize () {
-  // Grab all domains
-  var studyPaths = WebScience.Utilities.Matching.getStudyPaths()
 
   // Configure navigation collection
-  WebScience.Measurements.PageNavigation.runStudy({
-    domains: studyPaths.destinationPaths,
+  WebScience.Measurements.PageNavigation.startMeasurement({
+    domains: destinationDomains,
     trackUserAttention: true
   })
 
   // Configure link exposure collection
-  WebScience.Utilities.LinkResolution.initialize()
-  WebScience.Measurements.LinkExposure.runStudy({
-    domains: studyPaths.destinationPaths,
-    privateWindows: false
-  })
-
-  // Start Page Depth module
-  WebScience.Measurements.PageDepth.runStudy({
-    domains: studyPaths.destinationPaths
-  })
+  // WebScience.Utilities.LinkResolution.initialize()
+  // WebScience.Measurements.LinkExposure.startMeasurement({
+  // domains: destinationDomains,
+  // privateWindows: false
+  // })
 
   // Start Article Contents Module
-  ArticleContents.runStudy({
-    domains: studyPaths.destinationPaths,
+  ArticleContents.startMeasurement({
+    domains: destinationDomains
   })
 
   // Start Advertisements Module
-  Advertisements.runStudy({
-    domains: studyPaths.destinationPaths
+  Advertisements.startMeasurement({
+    domains: destinationDomains
   })
 }

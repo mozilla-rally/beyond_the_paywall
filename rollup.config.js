@@ -35,18 +35,5 @@ export default (cliArgs) => [
       }),
       commonjs()
     ]
-  },
-  {
-    input: 'src/content-script.js',
-    output: {
-      file: 'dist/content-script.js',
-      sourcemap: isDevMode(cliArgs) ? 'inline' : false
-    },
-    plugins: [
-      resolve({
-        browser: true
-      }),
-      commonjs()
-    ]
   }
 ]
