@@ -57,13 +57,14 @@ export async function startMeasurement ({
   })
 
   // Handle page depth events
-  WebScience.Utilities.Messaging.registerListener('WebScience.articleContent', async (depthInfo, sender, sendResponse) => {
+  WebScience.Utilities.Messaging.registerListener('WebScience.articleContent', async (articleContents, sender, sendResponse) => {
+    console.log(articleContents)
     let pageId = await nextPageIdCounter.getAndIncrement()
-    depthInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
-    depthInfo.tabId = sender.tab.id
-    for (let listener of listeners) { listener(depthInfo) }
-    storage.set(pageId.toString(), depthInfo)
-    debugLog(JSON.stringify(depthInfo))
+    articleContents.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
+    articleContents.tabId = sender.tab.id
+    for (let listener of listeners) { listener(articleContents) }
+    storage.set(pageId.toString(), articleContents)
+    debugLog(JSON.stringify(articleContents))
   }, {
     type: 'string',
     url: 'string',
