@@ -33,15 +33,15 @@
     {
      "id": "string",
      "tag": "string",
-     "height": int,
-     "width": int,
-     "clientHeight": int,
-     "clientWidth": int,
+     "height": "int",
+     "width": "int",
+     "clientHeight": "int",
+     "clientWidth": "int",
     }
    ],
   "body": {
-    "clientHeight": int,
-    "clientWidth": int
+    "clientHeight": "int",
+    "clientWidth": "int"
   },
   "type": "string",
   "url": "string",
