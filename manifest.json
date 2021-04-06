@@ -16,7 +16,8 @@
     "webRequest",
     "alarms",
     "telemetry",
-    "history"
+    "history",
+    "webNavigation"
   ],
 
   "background": {
