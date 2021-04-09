@@ -71,14 +71,12 @@
               // For every result
               for (var j = 0; j < ad.length; ++j) {
                 this_ad = ad[j]
-                // If its a div or iframe
-                if(this_ad.tagName=="DIV" || this_ad.tagName=="IFRAME") {
-                  // And it has nonzero clientHeight and clientWidth
-                  if(this_ad.clientHeight!=0 && this_ad.clientWidth!=0 ){
-                    //Grab the ad
-                    current_ads.push(this_ad)
-                  }  
-                }
+
+                // If it has nonzero clientHeight and clientWidth
+                if(this_ad.clientHeight!=0 && this_ad.clientWidth!=0 ){
+                  //Grab the ad
+                  current_ads.push(this_ad)
+                }  
               }
             }
           } catch(err) {

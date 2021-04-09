@@ -14,6 +14,23 @@ const adCssSelectors =  [
     "div > iframe",
     "iframe[scrolling]",
     "iframe[src]",
+    ".trc_rbox",
+    ".trc_rbox_div",
+    ".advertisment",
+    ".advads_ad_widget-1",
+    ".advads_ad_widget-2",
+    ".advads_ad_widget-3",
+    ".advads_ad_widget-4",
+    ".advads_ad_widget-5",
+    ".advads_ad_widget-6",
+    ".sam_ad",
+    ".widget_sp_image",
+    ".trc_related_container",
+    ".ctpl-duplicated-ad",
+    ".advert-wide",
+    ".advert-tall",
+    ".advert-box",
+    ".tnt-ads"
 ]
 
 if (typeof module === "object") {
