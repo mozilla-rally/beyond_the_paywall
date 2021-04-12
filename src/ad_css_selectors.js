@@ -30,7 +30,8 @@ const adCssSelectors =  [
     ".advert-wide",
     ".advert-tall",
     ".advert-box",
-    ".tnt-ads"
+    ".tnt-ads",
+    ".advertisement-content"
 ]
 
 if (typeof module === "object") {
