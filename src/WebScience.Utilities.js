@@ -14,6 +14,7 @@ import * as Idle from './web-science/dist/idle.js'
 import * as Matching from './web-science/dist/matching.js'
 import * as PageEvents from './web-science/dist/pageManager.js'
 import * as LinkResolution from './web-science/dist/linkResolution.js'
+import * as PageManager from './web-science/dist/pageManager.js'
 
 
 export { Debugging }
@@ -23,3 +24,4 @@ export { Idle }
 export { Matching }
 export { PageEvents }
 export { LinkResolution }
+export { PageManager }

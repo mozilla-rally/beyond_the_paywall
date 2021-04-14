@@ -4,8 +4,7 @@
  */
 // Function encapsulation to maintain unique variable scope for each content script
 
-(
-    async function () {
+const pageAds = function () {
       /**
        * @constant
        * How often (in milliseconds) to check for ads
@@ -25,6 +24,7 @@
       function sendAdsToBackground(document, ads) {
           browser.runtime.sendMessage({
               type: "WebScience.advertisements",
+              pageId: pageManager.pageId,
               url : document.location.href,
               body: {clientHeight: document.body.clientHeight,
                     clientWidth: document.body.clientWidth},
@@ -174,5 +174,12 @@
       window.addEventListener ("unload", unload, false);
 
 
-    }
-  )();
+}
+// Wait for pageManager load
+if ("pageManager" in window)
+    pageAds();
+else {
+    if(!("pageManagerHasLoaded" in window))
+        window.pageManagerHasLoaded = [];
+    window.pageManagerHasLoaded.push(pageAds);
+}

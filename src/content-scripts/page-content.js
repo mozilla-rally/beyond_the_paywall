@@ -8,8 +8,7 @@
 // This content script is slightly modified (maybe not even at all) by Princeton's script
 // This version grabs the URL, title, and text from a page to save
 
-(
-    async function () {
+const pageContent = function () {
       /**
        * Send page content to a background script (e.g., a classifier)
        * @param {string} workerId - id of the background worker
@@ -19,6 +18,7 @@
       function sendPageContentToBackground(pageContent) {
           browser.runtime.sendMessage({
               type: "WebScience.articleContent",
+              pageId: pageManager.pageId,
               url : document.location.href,
               title : pageContent.title,
               text : pageContent.textContent,
@@ -35,5 +35,12 @@
   
       sendPageContentToBackground(pageContent);
 
-    }
-  )();
+}
+// Wait for pageManager load
+if ("pageManager" in window)
+  pageContent();
+else {
+    if(!("pageManagerHasLoaded" in window))
+        window.pageManagerHasLoaded = [];
+    window.pageManagerHasLoaded.push(pageContent);
+}

@@ -33,7 +33,7 @@ export async function startMeasurement ({
     return   
   }
   initialized = true
-
+  await WebScience.Utilities.PageManager.initialize();
   storage = await new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.ArticleContents')
 
   // Use a unique identifier for each webpage the user visits that has a matching domain
@@ -66,6 +66,7 @@ export async function startMeasurement ({
     storage.set(pageId.toString(), articleContents)
     debugLog(JSON.stringify(articleContents))
   }, {
+    pageId:'string',
     type: 'string',
     url: 'string',
     title: 'string',
