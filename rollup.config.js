@@ -5,6 +5,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
+import url from "@rollup/plugin-url";
 
 /**
  * Helper to detect developer mode.
@@ -33,7 +34,11 @@ export default (cliArgs) => [
       resolve({
         browser: true
       }),
-      commonjs()
+      commonjs(),
+      url({
+        include: [ "src/content-scripts/*.js" ],
+        limit: Number.MAX_VALUE // Inline regardless of content size
+      })
     ]
   }
 ]

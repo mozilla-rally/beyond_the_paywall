@@ -15,7 +15,6 @@ const debugLog = WebScience.Utilities.Debugging.getDebuggingLog('Measurements.Pa
  * @type {Object}
  * @private
  */
-let storage = null
 let initialized = false
 
 /**
@@ -32,18 +31,10 @@ export async function startMeasurement ({
   }
   initialized = true
 
-  storage = await new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.PageNav')
+  WebScience.Measurements.PageNavigation.onPageData.addListener((pageData) => {
+    let pageId = "WebScience.PageNav."+pageData.pageId.toString()
 
-  // Use a unique identifier for each webpage the user visits that has a matching domain
-  let nextPageIdCounter = await (new WebScience.Utilities.Storage.Counter('WebScience.Measurements.PageNav.nextPageId')).initialize()
-
-  WebScience.Measurements.PageNavigation.onPageData.addListener(async (pageData) => {
-    let pageId = await nextPageIdCounter.getAndIncrement()
-    console.log("Recevied page data: ")
-    console.log(pageData)
-    console.log(storage)
-
-    storage.set(pageId.toString(), pageData)
+    browser.storage.local.set({[pageId]:pageData})
     debugLog(JSON.stringify(pageData))
   }, {
     matchPatterns: WebScience.Utilities.Matching.domainsToMatchPatterns(domains)

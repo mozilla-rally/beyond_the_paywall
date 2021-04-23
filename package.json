@@ -49,6 +49,8 @@
   },
   "homepage": "https://github.com/bchivers-stanford/local_news_demand",
   "dependencies": {
+    "@mozilla/readability": "^0.4.1",
+    "@rollup/plugin-url": "^6.0.0",
     "dexie": "^3.0.3"
   }
 }

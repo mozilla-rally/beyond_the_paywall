@@ -7,8 +7,10 @@
 //Brian Chivers, 3/19/2021
 // This content script is slightly modified (maybe not even at all) by Princeton's script
 // This version grabs the URL, title, and text from a page to save
-
 const pageContent = function () {
+
+      const pageManager = window.webScience.pageManager;
+
       /**
        * Send page content to a background script (e.g., a classifier)
        * @param {string} workerId - id of the background worker
@@ -28,19 +30,27 @@ const pageContent = function () {
               }
           });
       }
-  
+      console.log("getting page content!")
       // Parse (a clone of) the document using the injected readability script
-      let documentClone = document.cloneNode(true);
-      let pageContent = new Readability(documentClone).parse();
-  
-      sendPageContentToBackground(pageContent);
+      const documentClone = document.cloneNode(true); 
+      const article = (new Readability(documentClone)).parse();
+      
+      console.log(documentClone)
+      sendPageContentToBackground(article);
 
 }
+
 // Wait for pageManager load
-if ("pageManager" in window)
+if (("webScience" in window) && ("pageManager" in window.webScience)) {
+  console.log("page manager in in window")
   pageContent();
+}
 else {
-    if(!("pageManagerHasLoaded" in window))
-        window.pageManagerHasLoaded = [];
-    window.pageManagerHasLoaded.push(pageContent);
+  console.log("page manager not in in window")
+  if(!("pageManagerHasLoaded" in window)) {
+      window.pageManagerHasLoaded = [];
+      console.log("page manager queue")
+  }
+  window.pageManagerHasLoaded.push(pageContent);
+  console.log("pushed page manager queue")
 }

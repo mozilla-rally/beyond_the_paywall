@@ -5,6 +5,8 @@
 // Function encapsulation to maintain unique variable scope for each content script
 
 const pageAds = function () {
+
+      const pageManager = window.webScience.pageManager;
       /**
        * @constant
        * How often (in milliseconds) to check for ads
@@ -15,6 +17,7 @@ const pageAds = function () {
        * If there are no updates after this many retries, stop looking
        */
       const retryAttempts = 3;
+
       /**
        * Send page content to a background script to store
        * @param {string} document - HTML doc for href and referrer
@@ -37,7 +40,6 @@ const pageAds = function () {
           });
           data_sent=true;
       }
-
       // Ads - the current list of advertisements
       var ads = [];
       // Ad length -  a running list of the number of ads
@@ -51,7 +53,6 @@ const pageAds = function () {
       // navigates away from a page quickly
       var parsed = false;
       var data_sent = false;
-
       // Function: parseDocumentForAds
       // This function searches the document using the CSS selectors
       // It only grabs DIVs and IFRAMES with non-zero cleintHeight and clientWidth info
@@ -59,7 +60,6 @@ const pageAds = function () {
       //Returns: void
       // Saves final data to global ads variable
       function parseDocumentForAds (evt) {
-        console.log("parsing doc!")
         // Grab all elements using CSS selectors, and filter out only DIVs and Iframes
         let current_ads = [];
         // For every ad selector
@@ -136,7 +136,6 @@ const pageAds = function () {
       //This function wraps around parseDocumentForAds
       //and sets up the retry logic
       function findAds (evt) {
-
         function intervalFunc(evt) {
           //Parse the doc
           parseDocumentForAds(evt);
@@ -170,16 +169,30 @@ const pageAds = function () {
 
       // Set the event handlers to start finding ads on load
       // and to catch the data at last attempt on unload
-      window.addEventListener ("load", findAds, false);
-      window.addEventListener ("unload", unload, false);
+      window.addEventListener("load", findAds, false);
+      window.addEventListener("unload", unload, false);
 
 
 }
 // Wait for pageManager load
-if ("pageManager" in window)
-    pageAds();
+//if ("pageManager" in window){
+//    pageAds();
+//}
+//else {
+//    if(!("pageManagerHasLoaded" in window)){
+//        window.pageManagerHasLoaded = [];
+//    }
+//    window.pageManagerHasLoaded.push(pageAds);
+//}
+
+
+// Wait for pageManager load
+if (("webScience" in window) && ("pageManager" in window.webScience)) {
+  pageAds();
+}
 else {
-    if(!("pageManagerHasLoaded" in window))
-        window.pageManagerHasLoaded = [];
-    window.pageManagerHasLoaded.push(pageAds);
+  if(!("pageManagerHasLoaded" in window)) {
+      window.pageManagerHasLoaded = [];
+  }
+  window.pageManagerHasLoaded.push(pageAds);
 }

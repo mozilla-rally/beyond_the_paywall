@@ -32,10 +32,6 @@ export async function startMeasurement ({
   }
   initialized = true
   await WebScience.Utilities.PageManager.initialize();
-  storage = await new WebScience.Utilities.Storage.KeyValueStorage('WebScience.Measurements.Advertisements')
-
-  // Use a unique identifier for each webpage the user visits that has a matching domain
-  let nextPageIdCounter = await (new WebScience.Utilities.Storage.Counter('WebScience.Measurements.Advertisements.nextPageId')).initialize()
 
   // Build the URL matching set for content scripts
   let contentScriptMatches = WebScience.Utilities.Matching.domainsToMatchPatterns(domains, true);
@@ -52,23 +48,29 @@ export async function startMeasurement ({
         file: '/src/content-scripts/page-ads.js'
       }
       ],
-    runAt: 'document_idle'
+    runAt: 'document_start'
   })
 
   // Handle page depth events
-  WebScience.Utilities.Messaging.registerListener('WebScience.advertisements', async (adInfo, sender, sendResponse) => {
-    let pageId = await nextPageIdCounter.getAndIncrement()
+  WebScience.Utilities.Messaging.onMessage.addListener( (adInfo, sender, sendResponse) => {
+    console.log("ad listener kicked off!")
+    let pageId = "WebScience.Advertisements."+adInfo.pageId
     adInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
     adInfo.tabId = sender.tab.id
     for (var listener of listeners) { listener(adInfo) }
-    storage.set(pageId.toString(), adInfo)
+    browser.storage.local.set({[pageId]:adInfo})
     debugLog(JSON.stringify(adInfo))
   }, {
+    type: 'WebScience.advertisements',
+    schema:{
       pageId:'string',
       type: 'string',
       url: 'string',
-      ads: 'object'
+      ads: 'object',
+      body: 'object',
+      context:'object'
     }
+  }
   )
 }
 

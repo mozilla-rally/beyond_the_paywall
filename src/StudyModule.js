@@ -5,22 +5,21 @@
 // StudyModule.js, Brian Chivers 3/19/2021
 // This module starts all the WebScience modules, which collect
 // data for this study
-import * as WebScience from './WebScience.js'
-import * as ArticleContents from './ArticleContents.js'
+import * as PageText from './ArticleContents.js'
 import * as Advertisements from './Advertisements.js'
 import * as PageNav from './PageNav.js'
 import {destinationDomains} from './domains'
 
 export function initialize () {
-
+   // Start Article Contents Module
+   PageText.startMeasurement({
+    domains: destinationDomains
+  })
   PageNav.startMeasurement({
     domains: destinationDomains
   })
 
-  // Start Article Contents Module
-  ArticleContents.startMeasurement({
-    domains: destinationDomains
-  })
+ 
 
   // Start Advertisements Module
   Advertisements.startMeasurement({
