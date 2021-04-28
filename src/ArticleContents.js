@@ -33,6 +33,7 @@
    WebScience.Measurements.PageText.onTextParsed.addListener(async (pageData) => {
     let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
     if (surveyStatus=="completed"){
+      pageData['type'] = "WebScience.pageNav"
       let pageId = "WebScience.ArticleContents."+pageData.pageId
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       pageData['userID'] = ''+userID

@@ -3,7 +3,7 @@
  *
  * Brian Chivers, 3/19/2021
  *
- * @module WebScience.Measurements.PageNav
+ * @module WebScience.Measurements.PageNavSensitive
  */
 
 import * as WebScience from './WebScience.js'
@@ -35,6 +35,15 @@ export async function startMeasurement ({
       let pageId = "WebScience.PageNav."+pageData.pageId.toString()
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       pageData['userID'] = ''+userID
+
+      trimmedURL = fullURLtoBaseURL(pageData.url)
+      delete pageData.url
+      pageData['url'] = trimmedURL
+
+      trimmedReferrer = fullURLtoBaseURL(pageData.referrer)
+      delete pageData.referrer
+      pageData['referrer'] = trimmedReferrer
+      
       pageData['type'] = 'WebScience.pageNav'
       browser.storage.local.set({[pageId]:pageData})
     } else {
@@ -45,3 +54,11 @@ export async function startMeasurement ({
   });
 }
 
+function fullURLtoBaseURL(urlString){
+  var pathArray = urlString.split( '/' );
+  var protocol = pathArray[0];
+  var host = pathArray[2];
+  var url = protocol + '//' + host;
+
+  return url
+}

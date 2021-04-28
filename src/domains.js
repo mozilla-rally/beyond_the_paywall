@@ -1,3 +1,10 @@
+export const sensitiveDomains = [
+    "facebook.com",
+    "twitter.com",
+    "instagram.com"
+]
+
+
 export const destinationDomains = [
 "1011now.com",
 "10news.com",

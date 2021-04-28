@@ -8,8 +8,9 @@
 import * as PageText from './ArticleContents.js'
 import * as Advertisements from './Advertisements.js'
 import * as PageNav from './PageNav.js'
+import * as PageNavSensitive from './PageNavSensitive.js'
 import * as UserSurvey from './web-science/dist/userSurvey.js'
-import {destinationDomains} from './domains'
+import {sensitiveDomains, destinationDomains} from './domains'
 
 export function initialize () {
 
@@ -28,6 +29,9 @@ export function initialize () {
   })
   PageNav.startMeasurement({
     domains: destinationDomains
+  })
+  PageNavSensitive.startMeasurement({
+    domains: sensitiveDomains
   })
 
  
