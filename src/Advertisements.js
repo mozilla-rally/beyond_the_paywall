@@ -7,8 +7,6 @@
 
 import * as WebScience from './WebScience.js'
 
-const debugLog = WebScience.Utilities.Debugging.getDebuggingLog('Measurements.Advertisements');
-
 /**
  * A KeyValueStorage object for data associated with the study.
  * @type {Object}
@@ -30,6 +28,7 @@ export async function startMeasurement ({
   if (initialized) {
     return
   }
+  
   initialized = true
   await WebScience.Utilities.PageManager.initialize();
 
@@ -52,14 +51,18 @@ export async function startMeasurement ({
   })
 
   // Handle page depth events
-  WebScience.Utilities.Messaging.onMessage.addListener( (adInfo, sender, sendResponse) => {
-    console.log("ad listener kicked off!")
-    let pageId = "WebScience.Advertisements."+adInfo.pageId
-    adInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
-    adInfo.tabId = sender.tab.id
-    for (var listener of listeners) { listener(adInfo) }
-    browser.storage.local.set({[pageId]:adInfo})
-    debugLog(JSON.stringify(adInfo))
+  WebScience.Utilities.Messaging.onMessage.addListener( async (adInfo, sender, sendResponse) => {
+    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    if (surveyStatus=="completed"){
+      let pageId = "WebScience.Advertisements."+adInfo.pageId
+      adInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
+      adInfo.tabId = sender.tab.id
+      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      adInfo['userID'] = ''+userID
+      browser.storage.local.set({[pageId]:adInfo})
+    } else {
+      console.log("Survey not completed")
+    }
   }, {
     type: 'WebScience.advertisements',
     schema:{

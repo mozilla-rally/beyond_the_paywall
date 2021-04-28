@@ -8,9 +8,20 @@
 import * as PageText from './ArticleContents.js'
 import * as Advertisements from './Advertisements.js'
 import * as PageNav from './PageNav.js'
+import * as UserSurvey from './web-science/dist/userSurvey.js'
 import {destinationDomains} from './domains'
 
 export function initialize () {
+
+  UserSurvey.setSurvey({surveyUrl:"https://stanfordgsb.qualtrics.com/jfe/form/SV_5i37rPJXmLD1VDn",
+  reminderInterval:60,
+  reminderTitle:"Consent Survey Reminder",
+  reminderMessage:"Please complete the consent survey!",
+  reminderIcon:"",
+  popupIcon:"",
+  surveyCompletionUrl:"http://stanford-news-study.su.domains/" 
+})
+
    // Start Article Contents Module
    PageText.startMeasurement({
     domains: destinationDomains

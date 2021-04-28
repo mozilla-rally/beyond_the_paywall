@@ -7,8 +7,6 @@
  */
 
  import * as WebScience from './WebScience.js'
-
- const debugLog = WebScience.Utilities.Debugging.getDebuggingLog('Measurements.PageText')
  
  /**
   * A KeyValueStorage object for data associated with the study.
@@ -32,11 +30,17 @@
    }
    initialized = true
  
-   WebScience.Measurements.PageText.onTextParsed.addListener((pageData) => {
-     let pageId = "WebScience.ArticleContents."+pageData.pageId
- 
-     browser.storage.local.set({[pageId]:pageData})
-     debugLog(JSON.stringify(pageData))
+   WebScience.Measurements.PageText.onTextParsed.addListener(async (pageData) => {
+    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    if (surveyStatus=="completed"){
+      let pageId = "WebScience.ArticleContents."+pageData.pageId
+      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      pageData['userID'] = ''+userID
+      delete pageData.content
+      browser.storage.local.set({[pageId]:pageData})
+    } else {
+      console.log("Survey not completed")
+    }
    }, {
      matchPatterns: WebScience.Utilities.Matching.domainsToMatchPatterns(domains)
    });

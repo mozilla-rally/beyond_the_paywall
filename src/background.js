@@ -15,7 +15,6 @@ import {
   initialize 
 } from './StudyModule';
 
-console.log("hello?")
 const rally = new Rally();
 rally.initialize(
   // A sample key id used for encrypting data.
@@ -32,10 +31,8 @@ rally.initialize(
   // the build system.
   __ENABLE_DEVELOPER_MODE__,
 ).then(resolve => {
-  console.log("initializing study?")
   // Initialize the study and start it.
   initialize();
-  console.log("done initializing study?")
 }, reject =>{
   // Do not start the study in this case. Something
   // went wrong.

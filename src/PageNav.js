@@ -8,8 +8,6 @@
 
 import * as WebScience from './WebScience.js'
 
-const debugLog = WebScience.Utilities.Debugging.getDebuggingLog('Measurements.PageNav')
-
 /**
  * A KeyValueStorage object for data associated with the study.
  * @type {Object}
@@ -31,11 +29,16 @@ export async function startMeasurement ({
   }
   initialized = true
 
-  WebScience.Measurements.PageNavigation.onPageData.addListener((pageData) => {
-    let pageId = "WebScience.PageNav."+pageData.pageId.toString()
-
-    browser.storage.local.set({[pageId]:pageData})
-    debugLog(JSON.stringify(pageData))
+  WebScience.Measurements.PageNavigation.onPageData.addListener(async (pageData) => {
+    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    if (surveyStatus=="completed"){
+      let pageId = "WebScience.PageNav."+pageData.pageId.toString()
+      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      pageData['userID'] = ''+userID
+      browser.storage.local.set({[pageId]:pageData})
+    } else {
+      console.log("Survey not completed")
+    }
   }, {
     matchPatterns: WebScience.Utilities.Matching.domainsToMatchPatterns(domains)
   });
