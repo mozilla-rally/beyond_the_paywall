@@ -16,6 +16,7 @@ import {
 } from './StudyModule';
 
 const rally = new Rally();
+const DEV_MODE = true;
 rally.initialize(
   // A sample key id used for encrypting data.
   "sample-invalid-key-id",
@@ -32,7 +33,7 @@ rally.initialize(
   __ENABLE_DEVELOPER_MODE__,
 ).then(resolve => {
   // Initialize the study and start it.
-  initialize();
+  initialize(rally, DEV_MODE);
 }, reject =>{
   // Do not start the study in this case. Something
   // went wrong.

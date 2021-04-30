@@ -21,7 +21,9 @@ let initialized = false
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
  */
 export async function startMeasurement ({
-    domains = []
+    domains = [],
+    rally: rally,
+    is_dev_mode: is_dev_mode
 }) {
 
   if (initialized){
@@ -45,7 +47,11 @@ export async function startMeasurement ({
       pageData['referrer'] = trimmedReferrer
       
       pageData['type'] = 'WebScience.pageNav'
-      browser.storage.local.set({[pageId]:pageData})
+      if (is_dev_mode){
+        browser.storage.local.set({[pageId]:pageData})
+      } else {
+        rally.sendPing("pageNav", pageData);
+      }
     } else {
       console.log("Survey not completed")
     }

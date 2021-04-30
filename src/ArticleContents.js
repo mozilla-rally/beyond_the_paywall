@@ -13,7 +13,6 @@
   * @type {Object}
   * @private
   */
- let storage = null
  let initialized = false
  
  /**
@@ -22,9 +21,10 @@
   * @param {string[]} [options.domains=[]] - The domains of interest for the study.
   */
  export async function startMeasurement ({
-     domains = []
+     domains = [],
+     rally: rally,
+     is_dev_mode: is_dev_mode
  }) {
- 
    if (initialized){
      return   
    }
@@ -33,12 +33,17 @@
    WebScience.Measurements.PageText.onTextParsed.addListener(async (pageData) => {
     let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
     if (surveyStatus=="completed"){
-      pageData['type'] = "WebScience.pageNav"
+      pageData['type'] = "WebScience.articleContents"
       let pageId = "WebScience.ArticleContents."+pageData.pageId
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       pageData['userID'] = ''+userID
       delete pageData.content
-      browser.storage.local.set({[pageId]:pageData})
+
+      if ( is_dev_mode ){
+        browser.storage.local.set({[pageId]:pageData})
+      } else {
+        rally.sendPing("articleContent", pageData);
+      }
     } else {
       console.log("Survey not completed")
     }

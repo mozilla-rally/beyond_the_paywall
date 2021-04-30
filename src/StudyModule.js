@@ -12,7 +12,7 @@ import * as PageNavSensitive from './PageNavSensitive.js'
 import * as UserSurvey from './web-science/dist/userSurvey.js'
 import {sensitiveDomains, destinationDomains} from './domains'
 
-export function initialize () {
+export function initialize (rally, is_dev_mode) {
 
   UserSurvey.setSurvey({surveyUrl:"https://stanfordgsb.qualtrics.com/jfe/form/SV_5i37rPJXmLD1VDn",
   reminderInterval:60,
@@ -25,19 +25,27 @@ export function initialize () {
 
    // Start Article Contents Module
    PageText.startMeasurement({
-    domains: destinationDomains
+    domains: destinationDomains,
+    rally: rally,
+    is_dev_mode: is_dev_mode
   })
   PageNav.startMeasurement({
-    domains: destinationDomains
+    domains: destinationDomains,
+    rally: rally,
+    is_dev_mode: is_dev_mode
   })
   PageNavSensitive.startMeasurement({
-    domains: sensitiveDomains
+    domains: sensitiveDomains,
+    rally: rally,
+    is_dev_mode: is_dev_mode
   })
 
  
 
   // Start Advertisements Module
   Advertisements.startMeasurement({
-    domains: destinationDomains
+    domains: destinationDomains,
+    rally: rally,
+    is_dev_mode: is_dev_mode
   })
 }

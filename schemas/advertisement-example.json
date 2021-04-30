@@ -1,0 +1,53 @@
+{
+    "type": "WebScience.advertisements",
+    "pageId": "3cc59c08-2440-442a-80f9-0568e5b390e8",
+    "url": "https://www.sfchronicle.com/food/article/S-F-bars-could-reopen-indoors-as-soon-as-May-7-16140443.php",
+    "body": {
+      "clientHeight": 6279,
+      "clientWidth": 1280
+    },
+    "ads": [
+      {
+        "id": "google_ads_iframe_/36117602/hnp-sfchronicle.com/Food_1",
+        "tag": "IFRAME",
+        "clientHeight": 250,
+        "clientWidth": 970,
+        "height": "250",
+        "width": "970"
+      },
+      {
+        "id": "",
+        "tag": "IFRAME",
+        "clientHeight": 204,
+        "clientWidth": 300,
+        "height": "204px",
+        "width": "100%"
+      },
+      {
+        "id": "google_ads_iframe_/36117602/hnp-sfchronicle.com/Food_2",
+        "tag": "IFRAME",
+        "clientHeight": 280,
+        "clientWidth": 336,
+        "height": "280",
+        "width": "336"
+      },
+      {
+        "id": "google_ads_iframe_/36117602/hnp-sfchronicle.com/Food_3",
+        "tag": "IFRAME",
+        "clientHeight": 250,
+        "clientWidth": 300,
+        "height": "250",
+        "width": "300"
+      },
+      {
+        "id": "google_ads_iframe_/36117602/hnp-sfchronicle.com/Food_4",
+        "tag": "IFRAME",
+        "clientHeight": 600,
+        "clientWidth": 300,
+        "height": "600",
+        "width": "300"
+      }
+    ],
+    "tabId": 2,
+    "userID": "3f959b2e-83f0-4ebe-987f-95dced1350ba"
+  }

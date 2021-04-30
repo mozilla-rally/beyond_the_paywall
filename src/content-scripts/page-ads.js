@@ -31,12 +31,7 @@ const pageAds = function () {
               url : document.location.href,
               body: {clientHeight: document.body.clientHeight,
                     clientWidth: document.body.clientWidth},
-              ads: ads,
-              context: {
-                timestamp: Date.now(),
-                referrer: ''+document.referrer,
-              }
-
+              ads: ads
           });
           data_sent=true;
       }

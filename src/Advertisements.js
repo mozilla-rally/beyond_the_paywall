@@ -23,7 +23,9 @@ let listeners = []
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
  */
 export async function startMeasurement ({
-  domains = []
+  domains = [],
+  rally: rally,
+  is_dev_mode: is_dev_mode
 }) {
   if (initialized) {
     return
@@ -59,7 +61,12 @@ export async function startMeasurement ({
       adInfo.tabId = sender.tab.id
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       adInfo['userID'] = ''+userID
-      browser.storage.local.set({[pageId]:adInfo})
+      if (is_dev_mode){
+        browser.storage.local.set({[pageId]:adInfo})
+      } else {
+        rally.sendPing("advertisement", adInfo);
+      }
+
     } else {
       console.log("Survey not completed")
     }
@@ -70,9 +77,8 @@ export async function startMeasurement ({
       type: 'string',
       url: 'string',
       ads: 'object',
-      body: 'object',
-      context:'object'
-    }
+      body: 'object'
+  }
   }
   )
 }
