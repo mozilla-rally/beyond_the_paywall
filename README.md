@@ -31,5 +31,6 @@ This repository contains the extension code for Greg Martin's study to be hosted
     * In `about:debugging`, you should see your extension under "This Firefox"
     * If you click "Inspect", you'll be guided to a debugging site for your extension
     * The data should be available under Storage >  Extension Storage > moz-extension://......
+    * If you want to dump the current data, type `let data = await browser.storage.local.get()` in the debugging console, and then print the `data` variable. You can copy the object from there
 
 Note: These instructions are written for a MacOSX user. They'll likely be very similar for a Linux user, but not for Windows.
