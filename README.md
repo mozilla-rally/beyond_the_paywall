@@ -19,6 +19,9 @@ This repository contains the extension code for Greg Martin's study to be hosted
     * This file contains important permission information, as well as the location of the background script to run
 * `package.json`
     * This file contains important information about dependant packages and npm scripts
+* `web-ext-config.js`  
+    * This file contains information to run the extension locally
+    * The use of Firefox nightly is configured in this file
 
 ## How do I run this extension locally?
 
