@@ -51,6 +51,8 @@
   "dependencies": {
     "@mozilla/readability": "^0.4.1",
     "@rollup/plugin-url": "^6.0.0",
-    "dexie": "^3.0.3"
+    "dexie": "^3.0.3",
+    "hosted-git-info": ">=2.8.9",
+    "lodash": ">=4.17.21"
   }
 }
