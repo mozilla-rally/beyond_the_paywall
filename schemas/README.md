@@ -15,7 +15,7 @@ This file contains the metadata that is put into <event>.schema.json.  In genera
 
 If you were to add/delete a field, you should edit this file, and run the `generate-schema.mjs` script to regenerate the schemas.
 
-## <event>.schema.json and <event>-example.json
+## `<event>.schema.json` and `<event>-example.json`
 
 The `<event>.schema.json` are created systematically by `generate-schema.mjs`, and the `<event>-example.json` files are created manually from testing.
 
