@@ -1,5 +1,7 @@
 /**
- * This is a wrapper to store things that WebScience PageNavigation used to
+ * This is clone of PageNav.js, but for sensitive sites
+ * It strips the URL down to it's base for websites who's URL's might contain identifying info
+ * i.e. facebook, twitter, etc
  *
  * Brian Chivers, 3/19/2021
  *
@@ -8,17 +10,15 @@
 
 import * as WebScience from './WebScience.js'
 
-/**
- * A KeyValueStorage object for data associated with the study.
- * @type {Object}
- * @private
- */
+
 let initialized = false
 
 /**
- * Start an article contents study.
+ * Start a sensitive page nav study.
  * @param {Object} options - A set of options for the study.
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
+ * @param {Object} rally - The Mozilla Rally object initialized in background.js
+ * @param {Boolean} is_dev_mode - Determines where to store data
  */
 export async function startMeasurement ({
     domains = [],
@@ -26,18 +26,25 @@ export async function startMeasurement ({
     is_dev_mode: is_dev_mode
 }) {
 
+  // If already initialized, don't do it again
   if (initialized){
     return   
   }
   initialized = true
 
+  //Handles onPageData callbacks
   WebScience.Measurements.PageNavigation.onPageData.addListener(async (pageData) => {
+    // Get survey status
     let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    // If Completed
     if (surveyStatus=="completed"){
+      // PageID here is a unique key for local key-value storage
       let pageId = "WebScience.PageNav."+pageData.pageId.toString()
+      // Grab userID and set it in data
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       pageData['userID'] = ''+userID
-
+      
+      //Trim "url" and "referrer" to their base URL
       trimmedURL = fullURLtoBaseURL(pageData.url)
       delete pageData.url
       pageData['url'] = trimmedURL
@@ -46,7 +53,9 @@ export async function startMeasurement ({
       delete pageData.referrer
       pageData['referrer'] = trimmedReferrer
       
+      //Set page type to match other collection modules
       pageData['type'] = 'WebScience.pageNav'
+      // If dev mode, set data locally. Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:pageData})
       } else {
@@ -60,6 +69,13 @@ export async function startMeasurement ({
   });
 }
 
+
+/**
+ * Function: fullURLtoBaseURL
+ *  This function splits a URL and returns it's base
+ * @param {string} urlString -a URL as a string
+ * returns a string, the base URL
+ */
 function fullURLtoBaseURL(urlString){
   var pathArray = urlString.split( '/' );
   var protocol = pathArray[0];

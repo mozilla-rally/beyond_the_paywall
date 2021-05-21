@@ -1,3 +1,9 @@
+// domains.js -  Brian Chivers, 3/19/2021
+// This file contains two domain lists to control collection
+// destinationDomains - this is the main set to collect ads, articleContent, and pageNav info from
+// sensitiveDomains -  This set contains domains that need to have their URL's cleared of sensitive info in pageNav.
+//                     These domains are only used in "pageNavSensitive"
+
 export const sensitiveDomains = [
     "facebook.com",
     "twitter.com",

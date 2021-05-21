@@ -5,6 +5,7 @@
 // StudyModule.js, Brian Chivers 3/19/2021
 // This module starts all the WebScience modules, which collect
 // data for this study
+
 import * as PageText from './ArticleContents.js'
 import * as Advertisements from './Advertisements.js'
 import * as PageNav from './PageNav.js'
@@ -13,7 +14,7 @@ import * as UserSurvey from './web-science/dist/userSurvey.js'
 import {sensitiveDomains, destinationDomains} from './domains'
 
 export function initialize (rally, is_dev_mode) {
-
+  // Set UserSurvey
   UserSurvey.setSurvey({surveyUrl:"https://stanfordgsb.qualtrics.com/jfe/form/SV_5i37rPJXmLD1VDn",
   reminderInterval:60,
   reminderTitle:"Consent Survey Reminder",
@@ -29,11 +30,13 @@ export function initialize (rally, is_dev_mode) {
     rally: rally,
     is_dev_mode: is_dev_mode
   })
+  //Start PageNav module
   PageNav.startMeasurement({
     domains: destinationDomains,
     rally: rally,
     is_dev_mode: is_dev_mode
   })
+  // Start PageNavSensitive module
   PageNavSensitive.startMeasurement({
     domains: sensitiveDomains,
     rally: rally,

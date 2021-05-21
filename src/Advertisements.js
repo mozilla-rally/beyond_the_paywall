@@ -7,31 +7,27 @@
 
 import * as WebScience from './WebScience.js'
 
-/**
- * A KeyValueStorage object for data associated with the study.
- * @type {Object}
- * @private
- */
-let storage = null
 let initialized = false
 
-let listeners = []
 
 /**
  * Start an advertisements study.
  * @param {Object} options - A set of options for the study.
  * @param {string[]} [options.domains=[]] - The domains of interest for the study.
+ * @param {Object} rally - The Mozilla Rally object for this study, initialized in background.js
+ * @param {Boolean} is_dev_mode - Changes storage location based on whether this is dev mode or not
  */
 export async function startMeasurement ({
   domains = [],
   rally: rally,
   is_dev_mode: is_dev_mode
 }) {
+  // If this module has already been initialized, don't do it again
   if (initialized) {
     return
   }
-  
   initialized = true
+  // Make sure the page manager has initialized.  This is used for the PageID
   await WebScience.Utilities.PageManager.initialize();
 
   // Build the URL matching set for content scripts
@@ -52,21 +48,30 @@ export async function startMeasurement ({
     runAt: 'document_start'
   })
 
-  // Handle page depth events
+  // Handle advertisement callbacks
   WebScience.Utilities.Messaging.onMessage.addListener( async (adInfo, sender, sendResponse) => {
+    // Get the survey status
     let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+
+    // If the survey is complete
     if (surveyStatus=="completed"){
+      // pageID is a unique ID for the browser key/value storage
       let pageId = "WebScience.Advertisements."+adInfo.pageId
+      //Normalize the URL
       adInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
+      // Set TabID
       adInfo.tabId = sender.tab.id
+      // Grab the userID from the survey adn set it in the JSON data
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       adInfo['userID'] = ''+userID
+
+      // If its dev mode, store locally.  Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:adInfo})
       } else {
         rally.sendPing("advertisement", adInfo);
       }
-
+    // If the survey isn't completed, just log this message and move on
     } else {
       console.log("Survey not completed")
     }
@@ -83,21 +88,3 @@ export async function startMeasurement ({
   )
 }
 
-/* Utilities */
-
-/**
- * Retrieve the study data as an object. Note that this could be very
- * slow if there is a large volume of study data.
- * @returns {(Object|null)} - The study data, or `null` if no data
- * could be retrieved.
- */
-export async function getStudyDataAsObject () {
-  if (storage != null) {
-    return await storage.getContentsAsObject()
-  }
-  return null
-}
-
-export function registerListener(listener) {
-    listeners.push(listener)
-}

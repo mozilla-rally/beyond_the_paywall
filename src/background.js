@@ -10,11 +10,12 @@ import "webextension-polyfill";
 
 import Rally from "@mozilla/rally";
 
-// Example: import a module.
+// Import the study module, which does all the work
 import {
   initialize 
 } from './StudyModule';
 
+// Initialize the Rally object
 const rally = new Rally();
 const DEV_MODE = true;
 rally.initialize(
