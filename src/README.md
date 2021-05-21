@@ -2,6 +2,18 @@
 
 This directory contains the source code for the extension.  This is where you would make changes to the extension.  
 
+# How should I edit this code?
+
+This code is structured at two levels - the background scripts, and the content scripts.  The content scripts do work on the content of a page, and the background scripts handle the backend of storing data.
+
+If you're looking to change or edit a field of data:
+  1. Look for your modules `.js` file, and determine if the change can be made in the event listener
+  2. If you need to change the way this field is collected, you may need to edit the content script in the `/content-scripts`. Note that some of the content scripts are from [WebScience](https://github.com/mozilla-rally/web-science), and so those will not be editable.
+
+Once your edit has been made, run the extension locally (instructions in README.md of the base dir of this repo).  Check the data in `about:debugging`, and make sure the changes appear.  You might have to edit the field description in the `/schemas` directory.
+
+# Description of files
+
 ## `/content-scripts`
 
 This directory contains content-scripts, which are the only scripts that can act on the page-level.  Background scripts register these content scripts to run on certain webpages, and background scripts add Listener events to capture data sent back from content scripts.
