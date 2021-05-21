@@ -1,6 +1,16 @@
 # The Schemas Directory
 
-This directory contains schemas of the data sent to Mozilla Rally's servers.  There are a few important files in here:
+This directory contains schemas of the data sent to Mozilla Rally's servers. 
+
+# How do I change a schema to add, remove, or change a data point?
+
+ 1. Edit the details of the change in `measurement.config.mjs`.  
+ 2. Run `node generate-schema.mjs` to rebuild the `<event>.schema.json` files
+ 3. Using the extension, create an example file, and manually overwrite the `<event>-example.json`.
+ 4. Validate the changes match using [this website](https://www.jsonschemavalidator.net/).
+
+
+# Important files in this directory
 
 ## `generate-schema.mjs` 
 
