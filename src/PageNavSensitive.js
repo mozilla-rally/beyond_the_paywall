@@ -39,7 +39,7 @@ export async function startMeasurement ({
     // If Completed
     if (surveyStatus=="completed"){
       // PageID here is a unique key for local key-value storage
-      let pageId = "WebScience.PageNav."+pageData.pageId.toString()
+      let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
       // Grab userID and set it in data
       let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
       pageData['userID'] = ''+userID
@@ -54,12 +54,12 @@ export async function startMeasurement ({
       pageData['referrer'] = trimmedReferrer
       
       //Set page type to match other collection modules
-      pageData['type'] = 'WebScience.pageNav'
+      pageData['type'] = 'WebScience.pageNavSensitive'
       // If dev mode, set data locally. Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:pageData})
       } else {
-        rally.sendPing("pageNav", pageData);
+        rally.sendPing("pageNavSensitive", pageData);
       }
     } else {
       console.log("Survey not completed")

@@ -11,12 +11,7 @@ export const sharedEventProperties = {
     "userId": {
         "type": "string",
         "description": "a unique ID associated with a participant."
-    },
-    "url": {
-        "type": "string",
-        "description": "The URL of the page visited"
-      }
-
+    }
 }
 
 
@@ -29,6 +24,12 @@ export const articleContentRequiredEvents = [
 ]
 
 export const pageNavRequiredEvents = [
+  "type","pageId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
+  "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth",
+  "privateWindow"
+]
+
+export const pageNavSensitiveRequiredEvents = [
   "type","pageId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
   "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth",
   "privateWindow"
@@ -82,6 +83,10 @@ export const advertisementEventProperties = {
       "tabId": {
         "type": "integer",
         "description": "The ID of the tab this data was collected from"
+      },
+      "url": {
+        "type": "string",
+        "description": "The URL of the page visited"
       }
 }
 
@@ -97,6 +102,10 @@ export const articleContentEventProperties = {
       "privateWindow": {
         "type": "boolean",
         "description": "Was this page visited in  a private window?"
+      },
+      "url": {
+        "type": "string",
+        "description": "The URL of the page visited"
       }
 }
 
@@ -132,5 +141,48 @@ export const pageNavEventProperties = {
       "privateWindow": {
         "type": "boolean",
         "description": "Was this page visited in  a private window?"
+      },
+      "url": {
+        "type": "string",
+        "description": "The URL of the page visited"
       }
+}
+
+export const pageNavSensitiveEventProperties = {
+  "referrer": {
+    "type":"string",
+    "description": "The page that referred the user to the current page.  This has been stripped to domain-only"
+  },
+  "pageVisitStartTime": {
+      "type": "integer",
+      "description": "unix timestamp (in ms) of the page visit start"
+    },
+    "pageVisitStopTime": {
+      "type": "integer",
+      "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
+    },
+    "attentionDuration": {
+      "type": "integer",
+      "description": "duration (in ms) that the page was in attentive view"
+    },
+    "audioDuration": {
+      "type": "integer",
+      "description": "duration (in ms) that audio was playing on the page"
+    },
+    "attentionAndAudioDuration": {
+      "type": "integer",
+      "description": "duration (in ms) that audio was playing on the page and the page was in attentive view"
+    },
+    "maxRelativeScrollDepth": {
+      "type": "number",
+      "description": "The largest depth reach on the page, as a proportion of the total page height"
+    },
+    "privateWindow": {
+      "type": "boolean",
+      "description": "Was this page visited in  a private window?"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL of the page visited.  This URL has been stripped to only include the domain"
+    }
 }

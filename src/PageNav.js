@@ -42,6 +42,12 @@ export async function startMeasurement ({
       //Set the type to match other collection modules
       pageData['type'] = 'WebScience.pageNav'
 
+      // Trim the referrer down to domain only
+      trimmedReferrer = fullURLtoBaseURL(pageData.referrer)
+      delete pageData.referrer
+      pageData['referrer'] = trimmedReferrer
+
+      
       //If we're in dev mode, store locally. Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:pageData})
@@ -56,3 +62,18 @@ export async function startMeasurement ({
   });
 }
 
+
+/**
+ * Function: fullURLtoBaseURL
+ *  This function splits a URL and returns it's base
+ * @param {string} urlString -a URL as a string
+ * returns a string, the base URL
+ */
+ function fullURLtoBaseURL(urlString){
+  var pathArray = urlString.split( '/' );
+  var protocol = pathArray[0];
+  var host = pathArray[2];
+  var url = protocol + '//' + host;
+
+  return url
+}

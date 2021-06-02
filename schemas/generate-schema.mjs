@@ -7,7 +7,8 @@
  import { sharedEventProperties, 
     advertisementRequiredEvents, advertisementEventProperties,
     articleContentRequiredEvents, articleContentEventProperties,
-    pageNavRequiredEvents, pageNavEventProperties } from "./measurements.config.mjs";
+    pageNavRequiredEvents, pageNavEventProperties,
+    pageNavSensitiveRequiredEvents, pageNavSensitiveEventProperties } from "./measurements.config.mjs";
  
  const __dirname = path.dirname(fileURLToPath(import.meta.url));
  
@@ -58,6 +59,22 @@
     },
     "required": [ ...pageNavRequiredEvents ]
   }
+
+  const pageNavSensitive = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$comment": "Please do not edit this schema by hand. Generate it instead by running npm run build:schema.",
+    "mozPipelineMetadata": {
+      "expiration_policy": {
+        "delete_after_days": 90
+      }
+    },
+    "type": "object",
+    "properties": {
+      ...sharedEventProperties,
+      ...pageNavSensitiveEventProperties
+    },
+    "required": [ ...pageNavSensitiveRequiredEvents ]
+  }
    
  const ad_output = JSON.stringify(advertisement, null, 2);
  fs.writeFileSync(path.join(__dirname, "/advertisement.1.schema.json"), ad_output);
@@ -70,3 +87,7 @@
  const pageNav_output = JSON.stringify(pageNav, null, 2);
  fs.writeFileSync(path.join(__dirname, "/pageNav.1.schema.json"), pageNav_output);
  console.log(`generated new pageNav.1.schema.json file in ${__dirname}`);
+
+ const pageNavSensitive_output = JSON.stringify(pageNavSensitive, null, 2);
+ fs.writeFileSync(path.join(__dirname, "/pageNavSensitive.1.schema.json"), pageNavSensitive_output);
+ console.log(`generated new pageNavSensitive.1.schema.json file in ${__dirname}`);

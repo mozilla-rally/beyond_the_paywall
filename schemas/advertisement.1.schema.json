@@ -25,10 +25,6 @@
       "type": "string",
       "description": "a unique ID associated with a participant."
     },
-    "url": {
-      "type": "string",
-      "description": "The URL of the page visited"
-    },
     "body": {
       "type": "object",
       "description": "This object contains two properties listed below about the <body> tag of the page.  This is needed to normalize the size of advertisments against full page size.",
@@ -76,6 +72,10 @@
     "tabId": {
       "type": "integer",
       "description": "The ID of the tab this data was collected from"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL of the page visited"
     }
   },
   "required": [

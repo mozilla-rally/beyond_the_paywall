@@ -25,10 +25,6 @@
       "type": "string",
       "description": "a unique ID associated with a participant."
     },
-    "url": {
-      "type": "string",
-      "description": "The URL of the page visited"
-    },
     "title": {
       "type": "string",
       "description": "the contents of the title element in the head of the page"
@@ -40,6 +36,10 @@
     "privateWindow": {
       "type": "boolean",
       "description": "Was this page visited in  a private window?"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL of the page visited"
     }
   },
   "required": [

@@ -27,7 +27,7 @@
     },
     "referrer": {
       "type": "string",
-      "description": "The page that referred the user to the current page"
+      "description": "The page that referred the user to the current page.  This has been stripped to domain-only"
     },
     "pageVisitStartTime": {
       "type": "integer",
@@ -59,7 +59,7 @@
     },
     "url": {
       "type": "string",
-      "description": "The URL of the page visited"
+      "description": "The URL of the page visited.  This URL has been stripped to only include the domain"
     }
   },
   "required": [
