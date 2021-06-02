@@ -7,7 +7,8 @@
 export const sensitiveDomains = [
     "facebook.com",
     "twitter.com",
-    "instagram.com"
+    "instagram.com",
+    "google.com"
 ]
 
 

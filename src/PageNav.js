@@ -70,10 +70,14 @@ export async function startMeasurement ({
  * returns a string, the base URL
  */
  function fullURLtoBaseURL(urlString){
-  var pathArray = urlString.split( '/' );
-  var protocol = pathArray[0];
-  var host = pathArray[2];
-  var url = protocol + '//' + host;
+  if(urlString){
+    var pathArray = urlString.split( '/' );
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var url = protocol + '//' + host;
 
-  return url
+    return url
+  } else {
+    return urlString
+  }
 }
