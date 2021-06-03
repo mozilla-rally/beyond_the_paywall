@@ -8,7 +8,7 @@
 
 import "webextension-polyfill";
 
-import Rally from "@mozilla/rally";
+import { Rally } from "@mozilla/rally";
 
 // Import the study module, which does all the work
 import {
@@ -31,7 +31,14 @@ rally.initialize(
   },
   // The following constant is automatically provided by
   // the build system.
-  __ENABLE_DEVELOPER_MODE__,
+  __ENABLE_DEVELOPER_MODE__,  
+  (newState) => {
+    if (newState === runStates.RUNNING) {
+      console.log("The study can run.");
+    } else {
+      console.log("The study must stop.");
+    }
+  }
 ).then(resolve => {
   // Initialize the study and start it.
   initialize(rally, DEV_MODE);
