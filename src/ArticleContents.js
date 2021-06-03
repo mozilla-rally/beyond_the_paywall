@@ -39,9 +39,9 @@
       pageData['type'] = "WebScience.articleContents"
       //pageID here is used as a unique key for local key/value storage
       let pageId = "WebScience.ArticleContents."+pageData.pageId
-      //Grab the User ID and set it in the data
-      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
-      pageData['userID'] = ''+userID
+      //Grab the surveyUserID  and set it in the data
+      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      pageData['userID'] = ''+surveyUserID
       // We don't need this field -just textContent
       delete pageData.content
 

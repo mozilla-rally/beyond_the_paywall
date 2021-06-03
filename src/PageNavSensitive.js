@@ -40,9 +40,9 @@ export async function startMeasurement ({
     if (surveyStatus=="completed"){
       // PageID here is a unique key for local key-value storage
       let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
-      // Grab userID and set it in data
-      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
-      pageData['userID'] = ''+userID
+      // Grab surveyUserID and set it in data
+      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      pageData['userID'] = ''+surveyUserID
       
       //Trim "url" and "referrer" to their base URL
       trimmedURL = fullURLtoBaseURL(pageData.url)

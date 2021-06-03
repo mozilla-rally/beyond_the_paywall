@@ -61,9 +61,9 @@ export async function startMeasurement ({
       adInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
       // Set TabID
       adInfo.tabId = sender.tab.id
-      // Grab the userID from the survey adn set it in the JSON data
-      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
-      adInfo['userID'] = ''+userID
+      // Grab the surveyUserID from the survey adn set it in the JSON data
+      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      adInfo['userID'] = ''+surveyUserID
 
       // If its dev mode, store locally.  Otherwise, ping rally.
       if (is_dev_mode){

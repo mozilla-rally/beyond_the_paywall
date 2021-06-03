@@ -36,9 +36,9 @@ export async function startMeasurement ({
     if (surveyStatus=="completed"){
       // The pageID here is a unique key to be used for local key-value storage
       let pageId = "WebScience.PageNav."+pageData.pageId.toString()
-      //Grab userID and set it in JSON
-      let userID = await WebScience.Utilities.UserSurvey.getSurveyId()
-      pageData['userID'] = ''+userID
+      //Grab surveyUserID and set it in JSON
+      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      pageData['userID'] = ''+surveyUserID
       //Set the type to match other collection modules
       pageData['type'] = 'WebScience.pageNav'
 
