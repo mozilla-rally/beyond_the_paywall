@@ -43,7 +43,7 @@ export async function startMeasurement ({
       pageData['type'] = 'WebScience.pageNav'
 
       // Trim the referrer down to domain only
-      trimmedReferrer = fullURLtoBaseURL(pageData.referrer)
+      trimmedReferrer = fullURLminusQueryString(pageData.referrer)
       delete pageData.referrer
       pageData['referrer'] = trimmedReferrer
 
@@ -64,20 +64,16 @@ export async function startMeasurement ({
 
 
 /**
- * Function: fullURLtoBaseURL
- *  This function splits a URL and returns it's base
+ * Function: fullURLminusQueryString
+ *  This function removes the query string from a URL
  * @param {string} urlString -a URL as a string
- * returns a string, the base URL
+ * returns a string, the URL without the query string
  */
- function fullURLtoBaseURL(urlString){
+ function fullURLminusQueryString(urlString){
   if(urlString){
-    var pathArray = urlString.split( '/' );
-    var protocol = pathArray[0];
-    var host = pathArray[2];
-    var url = protocol + '//' + host;
-
-    return url
-  } else {
-    return urlString
+    return urlString.split(/[?#]/)[0];
+  } else{
+    return urlString;
   }
+
 }
