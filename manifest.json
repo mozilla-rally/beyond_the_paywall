@@ -12,10 +12,7 @@
     "notifications",
     "storage",
     "unlimitedStorage",
-    "tabs",
-    "alarms",
     "telemetry",
-    "history",
     "webNavigation",
     "webRequest",
     "webRequestBlocking"
