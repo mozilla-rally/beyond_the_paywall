@@ -3,8 +3,6 @@ This repository contains the extension code for Greg Martin's study to be hosted
 
 ## What's in this repo?
 
-* `/dist` 
-    *  This directory contains the compiled extension code - you shouldn't edit this.  It is created with `npm run build`.
 * `/schemas`
     * This directory contains files that outline the data being sent to Mozilla's servers, and examples of that data.
 * `/src`
@@ -12,9 +10,6 @@ This repository contains the extension code for Greg Martin's study to be hosted
 * `/tests/integration`
     * This directory would contain integration tests
     * It's currently (as of 5/11/21) just the template scripts
-*   `/web-ext-artifacts`
-    * This directory contains a compiled version of the code for the integration tests
-    * **This copy is not maintained and is out-of-date**
 * `manifest.json`
     * This file contains important permission information, as well as the location of the background script to run
 * `package.json`
