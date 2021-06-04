@@ -44,14 +44,18 @@ export async function startMeasurement ({
       let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
       pageData['userID'] = ''+surveyUserID
       
-      //Trim "url" and "referrer" to their base URL
+      //Trim "url" to its base URL
       trimmedURL = fullURLtoBaseURL(pageData.url)
       delete pageData.url
       pageData['url'] = trimmedURL
 
-      trimmedReferrer = fullURLtoBaseURL(pageData.referrer)
+      //delete unnecessary fields for yellow list
       delete pageData.referrer
-      pageData['referrer'] = trimmedReferrer
+      delete pageData.attentionDuration
+      delete pageData.audioDuration
+      delete pageData.attentionAndAudioDuration
+      delete pageData.maxRelativeScrollDepth
+      delete pageData.privateWindow
       
       //Set page type to match other collection modules
       pageData['type'] = 'WebScience.pageNavSensitive'

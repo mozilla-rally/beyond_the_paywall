@@ -30,9 +30,7 @@ export const pageNavRequiredEvents = [
 ]
 
 export const pageNavSensitiveRequiredEvents = [
-  "type","pageId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
-  "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth",
-  "privateWindow"
+  "type","pageId","userID","url", "pageVisitStartTime","pageVisitStopTime"
 ]
 
 export const advertisementEventProperties = {
@@ -149,10 +147,6 @@ export const pageNavEventProperties = {
 }
 
 export const pageNavSensitiveEventProperties = {
-  "referrer": {
-    "type":"string",
-    "description": "The page that referred the user to the current page.  This has been stripped to domain-only"
-  },
   "pageVisitStartTime": {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit start"
@@ -160,26 +154,6 @@ export const pageNavSensitiveEventProperties = {
     "pageVisitStopTime": {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
-    },
-    "attentionDuration": {
-      "type": "integer",
-      "description": "duration (in ms) that the page was in attentive view"
-    },
-    "audioDuration": {
-      "type": "integer",
-      "description": "duration (in ms) that audio was playing on the page"
-    },
-    "attentionAndAudioDuration": {
-      "type": "integer",
-      "description": "duration (in ms) that audio was playing on the page and the page was in attentive view"
-    },
-    "maxRelativeScrollDepth": {
-      "type": "number",
-      "description": "The largest depth reach on the page, as a proportion of the total page height"
-    },
-    "privateWindow": {
-      "type": "boolean",
-      "description": "Was this page visited in  a private window?"
     },
     "url": {
       "type": "string",
