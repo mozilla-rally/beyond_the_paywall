@@ -47,7 +47,9 @@ export async function startMeasurement ({
       delete pageData.referrer
       pageData['referrer'] = trimmedReferrer
 
-      
+      //Change pageId to visitId for clarity
+      pageData['visitId'] = pageData.pageId
+      delete pageData.pageId
       //If we're in dev mode, store locally. Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:pageData})

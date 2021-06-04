@@ -65,6 +65,10 @@ export async function startMeasurement ({
       let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
       adInfo['userID'] = ''+surveyUserID
 
+      //change PageID to VisitID for clarity
+      adInfo['visitId'] = adInfo.pageId
+      delete adInfo.pageId
+      
       // If its dev mode, store locally.  Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:adInfo})

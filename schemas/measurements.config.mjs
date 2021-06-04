@@ -1,10 +1,10 @@
 export const sharedEventProperties = {
     "type": {
       "type": "string",
-      "description": "the type of event recorded. Either WebScience.advertisements, WebScience.articleContents, or WebScience.pageNav",
-      "enum": ["WebScience.advertisements", "WebScience.articleContents","WebScience.pageNav"]
+      "description": "the type of event recorded. Either WebScience.advertisements, WebScience.articleContents, WebScience.pageNav, or WebScience.pageNavSensitive",
+      "enum": ["WebScience.advertisements", "WebScience.articleContents","WebScience.pageNav", "WebScience.pageNavSensitive"]
     },
-    "pageId": {
+    "visitId": {
         "type": "string",
         "description": "a unique ID associated with a page visit."
     },

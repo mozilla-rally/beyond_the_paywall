@@ -55,6 +55,10 @@ export async function startMeasurement ({
       
       //Set page type to match other collection modules
       pageData['type'] = 'WebScience.pageNavSensitive'
+
+      //Change pageId to visitId for clarity
+      pageData['visitId'] = pageData.pageId
+      delete pageData.pageId
       // If dev mode, set data locally. Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:pageData})

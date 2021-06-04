@@ -45,6 +45,10 @@
       // We don't need this field -just textContent
       delete pageData.content
 
+      //Change pageId to visitId for clarity
+      pageData['visitId'] = pageData.pageId
+      delete pageData.pageId
+      
       // If its dev mode, save locally.  Otherwise, ping rally
       if ( is_dev_mode ){
         browser.storage.local.set({[pageId]:pageData})
