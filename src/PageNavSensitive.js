@@ -8,7 +8,7 @@
  * @module WebScience.Measurements.PageNavSensitive
  */
 
-import * as WebScience from './WebScience.js'
+ import * as WebScience from "@mozilla/web-science";
 
 
 let initialized = false
