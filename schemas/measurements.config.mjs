@@ -2,11 +2,7 @@ export const sharedEventProperties = {
     "type": {
       "type": "string",
       "description": "the type of event recorded. Either WebScience.advertisements, WebScience.articleContents, WebScience.pageNav, or WebScience.pageNavSensitive",
-      "enum": ["WebScience.advertisements", "WebScience.articleContents","WebScience.pageNav", "WebScience.pageNavSensitive"]
-    },
-    "visitId": {
-        "type": "string",
-        "description": "a unique ID associated with a page visit."
+      "enum": ["WebScience.advertisements", "WebScience.articleContents","WebScience.pageNav", "WebScience.pageNavSensitive","WebScience.totalTiming"]
     },
     "userId": {
         "type": "string",
@@ -16,15 +12,15 @@ export const sharedEventProperties = {
 
 
 export const advertisementRequiredEvents = [
-  "type", "pageId", "userID","tabId","body"
+  "type", "visitId", "userID","tabId","body"
 ]
 
 export const articleContentRequiredEvents = [
-  "type", "pageId", "userID","url","title","textContent","privateWindow"
+  "type", "visitId", "userID","url","title","textContent","privateWindow"
 ]
 
 export const pageNavRequiredEvents = [
-  "type","pageId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
+  "type","visitId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
   "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth",
   "privateWindow"
 ]
@@ -33,7 +29,16 @@ export const pageNavSensitiveRequiredEvents = [
   "type","pageId","userID","url", "pageVisitStartTime","pageVisitStopTime"
 ]
 
+
+export const totalTimingRequiredEvents = [
+  "type","userID","pageVisitStartTime","pageVisitStopTime","attentionDuration"
+]
+
 export const advertisementEventProperties = {
+  "visitId": {
+    "type": "string",
+    "description": "a unique ID associated with a page visit."
+    },
     "body": {
         "type": "object",
         "description": "This object contains two properties listed below about the <body> tag of the page.  This is needed to normalize the size of advertisments against full page size.",
@@ -89,6 +94,10 @@ export const advertisementEventProperties = {
 }
 
 export const articleContentEventProperties = {
+  "visitId": {
+    "type": "string",
+    "description": "a unique ID associated with a page visit."
+    },
     "title": {
         "type": "string",
         "description": "the contents of the title element in the head of the page"
@@ -108,6 +117,10 @@ export const articleContentEventProperties = {
 }
 
 export const pageNavEventProperties = {
+  "visitId": {
+    "type": "string",
+    "description": "a unique ID associated with a page visit."
+    },
     "referrer": {
       "type":"string",
       "description": "The page that referred the user to the current page"
@@ -147,6 +160,10 @@ export const pageNavEventProperties = {
 }
 
 export const pageNavSensitiveEventProperties = {
+  "visitId": {
+    "type": "string",
+    "description": "a unique ID associated with a page visit."
+    },
   "pageVisitStartTime": {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit start"
@@ -159,4 +176,19 @@ export const pageNavSensitiveEventProperties = {
       "type": "string",
       "description": "The URL of the page visited.  This URL has been stripped to only include the domain"
     }
+}
+
+export const totalTimingEventProperties = {
+    "pageVisitStartTime": {
+        "type": "integer",
+        "description": "unix timestamp (in ms) of the page visit start"
+      },
+      "pageVisitStopTime": {
+        "type": "integer",
+        "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
+      },
+      "attentionDuration": {
+        "type": "integer",
+        "description": "duration (in ms) that the page was in attentive view"
+      }
 }

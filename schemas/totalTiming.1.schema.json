@@ -23,10 +23,6 @@
       "type": "string",
       "description": "a unique ID associated with a participant."
     },
-    "visitId": {
-      "type": "string",
-      "description": "a unique ID associated with a page visit."
-    },
     "pageVisitStartTime": {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit start"
@@ -35,17 +31,16 @@
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
     },
-    "url": {
-      "type": "string",
-      "description": "The URL of the page visited.  This URL has been stripped to only include the domain"
+    "attentionDuration": {
+      "type": "integer",
+      "description": "duration (in ms) that the page was in attentive view"
     }
   },
   "required": [
     "type",
-    "pageId",
     "userID",
-    "url",
     "pageVisitStartTime",
-    "pageVisitStopTime"
+    "pageVisitStopTime",
+    "attentionDuration"
   ]
 }

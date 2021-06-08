@@ -9,6 +9,7 @@ import * as PageText from './ArticleContents.js'
 import * as Advertisements from './Advertisements.js'
 import * as PageNav from './PageNav.js'
 import * as PageNavSensitive from './PageNavSensitive.js'
+import * as TotalTiming from './TotalTiming.js'
 import * as webScience from "@mozilla/web-science";
 import {sensitiveDomains, destinationDomains} from './domains'
 
@@ -41,6 +42,11 @@ export function initialize (rally, is_dev_mode) {
     rally: rally,
     is_dev_mode: is_dev_mode
   })
+    // Start PageNavSensitive module
+    TotalTiming.startMeasurement({
+      rally: rally,
+      is_dev_mode: is_dev_mode
+    })
 
  
 
