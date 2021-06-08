@@ -5,7 +5,7 @@
  * @module WebScience.Measurements.Advertisements
  */
 
- import * as WebScience from "@mozilla/web-science";
+ import * as webScience from "@mozilla/web-science";
  
 let initialized = false
 
@@ -28,10 +28,10 @@ export async function startMeasurement ({
   }
   initialized = true
   // Make sure the page manager has initialized.  This is used for the PageID
-  await WebScience.Utilities.PageManager.initialize();
+  await webScience.pageManager.initialize();
 
   // Build the URL matching set for content scripts
-  let contentScriptMatches = WebScience.Utilities.Matching.domainsToMatchPatterns(domains, true);
+  let contentScriptMatches = webScience.matching.domainsToMatchPatterns(domains, true);
 
   // Register the content script for measuring advertisement info
   // The CSS selectors file is needed to find ads on the page
@@ -49,20 +49,20 @@ export async function startMeasurement ({
   })
 
   // Handle advertisement callbacks
-  WebScience.Utilities.Messaging.onMessage.addListener( async (adInfo, sender, sendResponse) => {
+  webScience.messaging.onMessage.addListener( async (adInfo, sender, sendResponse) => {
     // Get the survey status
-    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
 
     // If the survey is complete
     if (surveyStatus=="completed"){
       // pageID is a unique ID for the browser key/value storage
       let pageId = "WebScience.Advertisements."+adInfo.pageId
       //Normalize the URL
-      adInfo.url = WebScience.Utilities.Matching.normalizeUrl(sender.url)
+      adInfo.url = webScience.matching.normalizeUrl(sender.url)
       // Set TabID
       adInfo.tabId = sender.tab.id
       // Grab the surveyUserID from the survey adn set it in the JSON data
-      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      let surveyUserID = await webScience.userSurvey.getSurveyId()
       adInfo['userID'] = ''+surveyUserID
 
       //change PageID to VisitID for clarity

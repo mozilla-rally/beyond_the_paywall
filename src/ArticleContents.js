@@ -6,7 +6,7 @@
  * @module WebScience.Measurements.PageText
  */
 
- import * as WebScience from "@mozilla/web-science";
+ import * as webScience from "@mozilla/web-science";
  
  let initialized = false
  
@@ -29,9 +29,9 @@
    initialized = true
  
    // Handle onTextParsed event callbacks
-   WebScience.Measurements.PageText.onTextParsed.addListener(async (pageData) => {
+   webScience.pageText.onTextParsed.addListener(async (pageData) => {
     // Grab the survey status
-    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
     
     // If the survey has been completed
     if (surveyStatus=="completed"){
@@ -40,7 +40,7 @@
       //pageID here is used as a unique key for local key/value storage
       let pageId = "WebScience.ArticleContents."+pageData.pageId
       //Grab the surveyUserID  and set it in the data
-      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      let surveyUserID = await webScience.userSurvey.getSurveyId()
       pageData['userID'] = ''+surveyUserID
       // We don't need this field -just textContent
       delete pageData.content
@@ -60,7 +60,7 @@
       console.log("Survey not completed")
     }
    }, {
-     matchPatterns: WebScience.Utilities.Matching.domainsToMatchPatterns(domains)
+     matchPatterns: webScience.matching.domainsToMatchPatterns(domains)
    });
  }
  

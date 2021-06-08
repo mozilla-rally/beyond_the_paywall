@@ -6,7 +6,7 @@
  * @module WebScience.Measurements.PageNav
  */
 
- import * as WebScience from "@mozilla/web-science";
+ import * as webScience from "@mozilla/web-science";
 
 let initialized = false
 
@@ -29,15 +29,15 @@ export async function startMeasurement ({
   initialized = true
 
   //Handles PageNavigation callbacks
-  WebScience.Measurements.PageNavigation.onPageData.addListener(async (pageData) => {
+  webScience.pageNavigation.onPageData.addListener(async (pageData) => {
     //Get Survey Status
-    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
     // If survey is completed
     if (surveyStatus=="completed"){
       // The pageID here is a unique key to be used for local key-value storage
       let pageId = "WebScience.PageNav."+pageData.pageId.toString()
       //Grab surveyUserID and set it in JSON
-      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      let surveyUserID = await webScience.userSurvey.getSurveyId()
       pageData['userID'] = ''+surveyUserID
       //Set the type to match other collection modules
       pageData['type'] = 'WebScience.pageNav'
@@ -60,7 +60,7 @@ export async function startMeasurement ({
       console.log("Survey not completed")
     }
   }, {
-    matchPatterns: WebScience.Utilities.Matching.domainsToMatchPatterns(domains)
+    matchPatterns: webScience.matching.domainsToMatchPatterns(domains)
   });
 }
 

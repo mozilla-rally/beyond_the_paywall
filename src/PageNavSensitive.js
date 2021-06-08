@@ -8,7 +8,7 @@
  * @module WebScience.Measurements.PageNavSensitive
  */
 
- import * as WebScience from "@mozilla/web-science";
+ import * as webScience from "@mozilla/web-science";
 
 
 let initialized = false
@@ -33,15 +33,15 @@ export async function startMeasurement ({
   initialized = true
 
   //Handles onPageData callbacks
-  WebScience.Measurements.PageNavigation.onPageData.addListener(async (pageData) => {
+  webScience.pageNavigation.onPageData.addListener(async (pageData) => {
     // Get survey status
-    let surveyStatus  = await WebScience.Utilities.UserSurvey.getSurveyStatus()
+    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
     // If Completed
     if (surveyStatus=="completed"){
       // PageID here is a unique key for local key-value storage
       let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
       // Grab surveyUserID and set it in data
-      let surveyUserID = await WebScience.Utilities.UserSurvey.getSurveyId()
+      let surveyUserID = await webScience.userSurvey.getSurveyId()
       pageData['userID'] = ''+surveyUserID
       
       //Trim "url" to its base URL
@@ -73,7 +73,7 @@ export async function startMeasurement ({
       console.log("Survey not completed")
     }
   }, {
-    matchPatterns: WebScience.Utilities.Matching.domainsToMatchPatterns(domains)
+    matchPatterns: webScience.matching.domainsToMatchPatterns(domains)
   });
 }
 
