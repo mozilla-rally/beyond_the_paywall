@@ -18,7 +18,7 @@
    "$comment": "Please do not edit this schema by hand. Generate it instead by running npm run build:schema.",
    "mozPipelineMetadata": {
      "expiration_policy": {
-       "delete_after_days": 90
+       "delete_after_days": 558
      }
    },
    "type": "object",
@@ -34,7 +34,7 @@
     "$comment": "Please do not edit this schema by hand. Generate it instead by running npm run build:schema.",
     "mozPipelineMetadata": {
       "expiration_policy": {
-        "delete_after_days": 90
+        "delete_after_days": 558
       }
     },
     "type": "object",
@@ -50,7 +50,7 @@
     "$comment": "Please do not edit this schema by hand. Generate it instead by running npm run build:schema.",
     "mozPipelineMetadata": {
       "expiration_policy": {
-        "delete_after_days": 90
+        "delete_after_days": 558
       }
     },
     "type": "object",
@@ -66,7 +66,7 @@
     "$comment": "Please do not edit this schema by hand. Generate it instead by running npm run build:schema.",
     "mozPipelineMetadata": {
       "expiration_policy": {
-        "delete_after_days": 90
+        "delete_after_days": 558
       }
     },
     "type": "object",
@@ -82,7 +82,7 @@
     "$comment": "Please do not edit this schema by hand. Generate it instead by running npm run build:schema.",
     "mozPipelineMetadata": {
       "expiration_policy": {
-        "delete_after_days": 90
+        "delete_after_days": 558
       }
     },
     "type": "object",
