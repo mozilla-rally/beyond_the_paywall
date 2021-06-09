@@ -23,10 +23,6 @@
       "type": "string",
       "description": "a unique ID associated with a participant."
     },
-    "visitId": {
-      "type": "string",
-      "description": "a unique ID associated with a page visit."
-    },
     "pageVisitStartTime": {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit start"
@@ -42,7 +38,6 @@
   },
   "required": [
     "type",
-    "pageId",
     "userID",
     "domain",
     "pageVisitStartTime",

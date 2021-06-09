@@ -25,7 +25,7 @@ export const pageNavRequiredEvents = [
 ]
 
 export const pageNavSensitiveRequiredEvents = [
-  "type","pageId","userID","domain", "pageVisitStartTime","pageVisitStopTime"
+  "type","userID","domain", "pageVisitStartTime","pageVisitStopTime"
 ]
 
 
@@ -151,10 +151,6 @@ export const pageNavEventProperties = {
 }
 
 export const pageNavSensitiveEventProperties = {
-  "visitId": {
-    "type": "string",
-    "description": "a unique ID associated with a page visit."
-    },
   "pageVisitStartTime": {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit start"
