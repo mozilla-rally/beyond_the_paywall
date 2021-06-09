@@ -25,7 +25,7 @@ export const pageNavRequiredEvents = [
 ]
 
 export const pageNavSensitiveRequiredEvents = [
-  "type","pageId","userID","url", "pageVisitStartTime","pageVisitStopTime"
+  "type","pageId","userID","domain", "pageVisitStartTime","pageVisitStopTime"
 ]
 
 
@@ -163,7 +163,7 @@ export const pageNavSensitiveEventProperties = {
       "type": "integer",
       "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
     },
-    "url": {
+    "domain": {
       "type": "string",
       "description": "The URL of the page visited.  This URL has been stripped to only include the domain"
     }

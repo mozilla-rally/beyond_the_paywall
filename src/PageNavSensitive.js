@@ -47,7 +47,7 @@ export async function startMeasurement ({
       //Trim "url" to its base URL
       trimmedURL = fullURLtoBaseURL(pageData.url)
       delete pageData.url
-      pageData['url'] = trimmedURL
+      pageData['domain'] = trimmedURL
 
       //delete unnecessary fields for yellow list
       delete pageData.referrer
