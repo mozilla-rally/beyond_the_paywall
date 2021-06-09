@@ -1,13 +1,13 @@
 {
-    "visitId": "d76603fa-d44b-4006-ae72-2b88fcb56986",
-    "url": "https://www.sfchronicle.com/",
-    "referrer": "",
-    "pageVisitStartTime": 1619818477175,
-    "pageVisitStopTime": 1619818488110,
-    "attentionDuration": 10641,
-    "audioDuration": 0,
-    "attentionAndAudioDuration": 0,
-    "maxRelativeScrollDepth": 0.0795358394778194,
-    "userID": "3f959b2e-83f0-4ebe-987f-95dced1350ba",
-    "type": "WebScience.pageNav"
-  }
+  "type": "WebScience.pageNav",
+  "userId": "7a367510-5fcc-4313-b70f-117fa3e2f027",
+  "visitId": "4caccb6e-7ae8-42e8-bd3c-c6253713801a",
+  "url": "https://www.yourbigsky.com/",
+  "referrer": "",
+  "pageVisitStartTime": 1623271436192,
+  "pageVisitStopTime": 1623271449198,
+  "attentionDuration": 12520,
+  "audioDuration": 0,
+  "attentionAndAudioDuration": 0,
+  "maxRelativeScrollDepth": 0.21491891891891893
+}

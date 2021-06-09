@@ -38,34 +38,24 @@ export async function startMeasurement ({
     let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
     // If Completed
     if (surveyStatus=="completed"){
-      // PageID here is a unique key for local key-value storage
-      let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
       // Grab surveyUserID and set it in data
       let surveyUserID = await webScience.userSurvey.getSurveyId()
-      pageData['userID'] = ''+surveyUserID
+      output = {
+        "type" : 'WebScience.pageNavSensitive',
+        "userId" : ''+surveyUserID,
+        "domain" : fullURLtoBaseURL(pageData.url),
+        "pageVisitStartTime": pageData.pageVisitStartTime,
+        "pageVisitStopTime": pageData.pageVisitStopTime,
+
+      }
       
-      //Trim "url" to its base URL
-      trimmedURL = fullURLtoBaseURL(pageData.url)
-      delete pageData.url
-      pageData['domain'] = trimmedURL
-
-      //delete unnecessary fields for yellow list
-      delete pageData.referrer
-      delete pageData.attentionDuration
-      delete pageData.audioDuration
-      delete pageData.attentionAndAudioDuration
-      delete pageData.maxRelativeScrollDepth
-      delete pageData.privateWindow
-      delete pageData.pageId
-
-      //Set page type to match other collection modules
-      pageData['type'] = 'WebScience.pageNavSensitive'
-
       // If dev mode, set data locally. Otherwise, ping rally.
       if (is_dev_mode){
-        browser.storage.local.set({[pageId]:pageData})
+        // PageID here is a unique key for local key-value storage
+        let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
+        browser.storage.local.set({[pageId]:output})
       } else {
-        rally.sendPing("pageNavSensitive", pageData);
+        rally.sendPing("pageNavSensitive", output);
       }
     } else {
       console.log("Survey not completed")

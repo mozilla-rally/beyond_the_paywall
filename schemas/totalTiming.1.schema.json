@@ -38,7 +38,7 @@
   },
   "required": [
     "type",
-    "userID",
+    "userId",
     "pageVisitStartTime",
     "pageVisitStopTime",
     "attentionDuration"

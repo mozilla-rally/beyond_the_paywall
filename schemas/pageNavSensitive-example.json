@@ -1,7 +1,7 @@
 {
-    "pageVisitStartTime": 1622665446607,
-    "pageVisitStopTime": 1622665457030,
-    "userID": "a81804d5-2625-410a-9c71-974697326f10",
-    "domain": "https://www.facebook.com",
-    "type": "WebScience.pageNavSensitive"
-}
+    "type": "WebScience.pageNavSensitive",
+    "userId": "7a367510-5fcc-4313-b70f-117fa3e2f027",
+    "domain": "https://scholar.google.com",
+    "pageVisitStartTime": 1623271477206,
+    "pageVisitStopTime": 1623271481739
+  }

@@ -32,21 +32,20 @@ export async function startMeasurement ({
     let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
     // If survey is completed
     if (surveyStatus=="completed"){
-      // The pageID here is a unique key to be used for local key-value storage
-      let pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
       //Grab surveyUserID and set it in JSON
       let surveyUserID = await webScience.userSurvey.getSurveyId()
-      pageData['userID'] = ''+surveyUserID
-      //Set the type to match other collection modules
-      pageData['type'] = 'WebScience.totalTiming'
-
       //Create sparse output object
-      output = {"userID": ''+surveyUserID, "type":'WebScience.totalTiming',
-                "pageVisitStartTime":pageData['pageVisitStartTime'],
-                "pageVisitStopTime":pageData['pageVisitStopTime'],
-                 "attentionDuration":pageData['attentionDuration']}
+      output = {
+        "userId": ''+surveyUserID, 
+        "type":'WebScience.totalTiming',
+        "pageVisitStartTime":pageData.pageVisitStartTime,
+        "pageVisitStopTime":pageData.pageVisitStopTime,
+        "attentionDuration":pageData.attentionDuration
+      }
       //If we're in dev mode, store locally. Otherwise, ping rally.
       if (is_dev_mode){
+        // The pageID here is a unique key to be used for local key-value storage
+        let pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
         browser.storage.local.set({[pageId]:output})
       } else {
         rally.sendPing("totalTiming", output);

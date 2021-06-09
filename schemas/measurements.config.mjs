@@ -12,25 +12,25 @@ export const sharedEventProperties = {
 
 
 export const advertisementRequiredEvents = [
-  "type", "visitId", "userID","body"
+  "type", "visitId", "userId","body"
 ]
 
 export const articleContentRequiredEvents = [
-  "type", "visitId", "userID","url","title","textContent"
+  "type", "visitId", "userId","url","title","textContent"
 ]
 
 export const pageNavRequiredEvents = [
-  "type","visitId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
+  "type","visitId","userId","url", "referrer","pageVisitStartTime","pageVisitStopTime",
   "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth"
 ]
 
 export const pageNavSensitiveRequiredEvents = [
-  "type","userID","domain", "pageVisitStartTime","pageVisitStopTime"
+  "type","userId","domain", "pageVisitStartTime","pageVisitStopTime"
 ]
 
 
 export const totalTimingRequiredEvents = [
-  "type","userID","pageVisitStartTime","pageVisitStopTime","attentionDuration"
+  "type","userId","pageVisitStartTime","pageVisitStopTime","attentionDuration"
 ]
 
 export const advertisementEventProperties = {

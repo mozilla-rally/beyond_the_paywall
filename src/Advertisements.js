@@ -55,28 +55,21 @@ export async function startMeasurement ({
 
     // If the survey is complete
     if (surveyStatus=="completed"){
-      // pageID is a unique ID for the browser key/value storage
-      let pageId = "WebScience.Advertisements."+adInfo.pageId
-      //Normalize the URL
-      adInfo.url = webScience.matching.normalizeUrl(sender.url)
-      // Set TabID
-      adInfo.tabId = sender.tab.id
-      // Grab the surveyUserID from the survey adn set it in the JSON data
       let surveyUserID = await webScience.userSurvey.getSurveyId()
-      adInfo['userID'] = ''+surveyUserID
-
-      //change PageID to VisitID for clarity
-      adInfo['visitId'] = adInfo.pageId
-      delete adInfo.pageId
-      
-      //Delete TabID
-      delete adInfo.tabId
-      
-      // If its dev mode, store locally.  Otherwise, ping rally.
+      output = {
+        "type" : "WebScience.advertisements",
+        "userId" : ''+surveyUserID,
+        "visitId" : adInfo.pageId,
+        "url" : webScience.matching.normalizeUrl(sender.url),
+        "body" : adInfo.body,
+        "ads" : adInfo.ads
+      }
       if (is_dev_mode){
-        browser.storage.local.set({[pageId]:adInfo})
+        // pageID is a unique ID for the browser key/value storage
+        let pageId = "WebScience.Advertisements."+adInfo.pageId
+        browser.storage.local.set({[pageId]:output})
       } else {
-        rally.sendPing("advertisement", adInfo);
+        rally.sendPing("advertisement", output);
       }
     // If the survey isn't completed, just log this message and move on
     } else {

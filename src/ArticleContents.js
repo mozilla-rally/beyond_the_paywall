@@ -35,28 +35,22 @@
     
     // If the survey has been completed
     if (surveyStatus=="completed"){
-      // Set the type to match other event data schemas
-      pageData['type'] = "WebScience.articleContents"
-      //pageID here is used as a unique key for local key/value storage
-      let pageId = "WebScience.ArticleContents."+pageData.pageId
-      //Grab the surveyUserID  and set it in the data
       let surveyUserID = await webScience.userSurvey.getSurveyId()
-      pageData['userID'] = ''+surveyUserID
-      // We don't need this field -just textContent
-      delete pageData.content
-
-      //Change pageId to visitId for clarity
-      pageData['visitId'] = pageData.pageId
-      delete pageData.pageId
-      
-      //Remove private window field
-      delete pageData.privateWindow
-
+      output = {
+        "type" : "WebScience.articleContents",
+        "visitId" : pageData.pageId,
+        "userId" :  ''+surveyUserID,
+        "url" : pageData.url,
+        "title" : pageData.title,
+        "textContent" : pageData.textContent
+      }
       // If its dev mode, save locally.  Otherwise, ping rally
       if ( is_dev_mode ){
-        browser.storage.local.set({[pageId]:pageData})
+        //pageID here is used as a unique key for local key/value storage
+        let pageId = "WebScience.ArticleContents."+pageData.pageId
+        browser.storage.local.set({[pageId]:output})
       } else {
-        rally.sendPing("articleContent", pageData);
+        rally.sendPing("articleContent", output);
       }
     // If the survey isn't completed, send this message and move on.
     } else {

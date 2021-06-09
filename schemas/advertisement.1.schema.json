@@ -83,7 +83,7 @@
   "required": [
     "type",
     "visitId",
-    "userID",
+    "userId",
     "body"
   ]
 }

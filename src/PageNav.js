@@ -34,31 +34,28 @@ export async function startMeasurement ({
     let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
     // If survey is completed
     if (surveyStatus=="completed"){
-      // The pageID here is a unique key to be used for local key-value storage
-      let pageId = "WebScience.PageNav."+pageData.pageId.toString()
       //Grab surveyUserID and set it in JSON
       let surveyUserID = await webScience.userSurvey.getSurveyId()
-      pageData['userID'] = ''+surveyUserID
-      //Set the type to match other collection modules
-      pageData['type'] = 'WebScience.pageNav'
-
-      // Trim the referrer down to domain only
-      trimmedReferrer = fullURLminusQueryString(pageData.referrer)
-      delete pageData.referrer
-      pageData['referrer'] = trimmedReferrer
-
-      //Change pageId to visitId for clarity
-      pageData['visitId'] = pageData.pageId
-      delete pageData.pageId
-
-      //Remove private window field
-      delete pageData.privateWindow
-
+      output = {
+        "type" : 'WebScience.pageNav',
+        "userId" : ''+surveyUserID,
+        "visitId" : pageData.pageId,
+        "url": pageData.url,
+        "referrer": fullURLminusQueryString(pageData.referrer),
+        "pageVisitStartTime": pageData.pageVisitStartTime,
+        "pageVisitStopTime": pageData.pageVisitStopTime,
+        "attentionDuration": pageData.attentionDuration,
+        "audioDuration": pageData.audioDuration,
+        "attentionAndAudioDuration": pageData.attentionAndAudioDuration,
+        "maxRelativeScrollDepth": pageData.maxRelativeScrollDepth
+      }
       //If we're in dev mode, store locally. Otherwise, ping rally.
       if (is_dev_mode){
-        browser.storage.local.set({[pageId]:pageData})
+        // The pageID here is a unique key to be used for local key-value storage
+        let pageId = "WebScience.PageNav."+pageData.pageId.toString()
+        browser.storage.local.set({[pageId]:output})
       } else {
-        rally.sendPing("pageNav", pageData);
+        rally.sendPing("pageNav", output);
       }
     } else {
       console.log("Survey not completed")
