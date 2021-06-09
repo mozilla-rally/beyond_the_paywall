@@ -84,7 +84,6 @@
     "type",
     "visitId",
     "userID",
-    "tabId",
     "body"
   ]
 }

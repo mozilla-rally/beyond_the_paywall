@@ -55,10 +55,6 @@
       "type": "number",
       "description": "The largest depth reach on the page, as a proportion of the total page height"
     },
-    "privateWindow": {
-      "type": "boolean",
-      "description": "Was this page visited in  a private window?"
-    },
     "url": {
       "type": "string",
       "description": "The URL of the page visited"
@@ -75,7 +71,6 @@
     "attentionDuration",
     "audioDuration",
     "attentionAndAudioDuration",
-    "maxRelativeScrollDepth",
-    "privateWindow"
+    "maxRelativeScrollDepth"
   ]
 }

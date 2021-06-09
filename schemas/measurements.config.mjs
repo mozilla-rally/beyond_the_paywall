@@ -12,7 +12,7 @@ export const sharedEventProperties = {
 
 
 export const advertisementRequiredEvents = [
-  "type", "visitId", "userID","tabId","body"
+  "type", "visitId", "userID","body"
 ]
 
 export const articleContentRequiredEvents = [

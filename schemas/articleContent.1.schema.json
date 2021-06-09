@@ -35,10 +35,6 @@
       "type": "string",
       "description": "The text contents of the article on the page."
     },
-    "privateWindow": {
-      "type": "boolean",
-      "description": "Was this page visited in  a private window?"
-    },
     "url": {
       "type": "string",
       "description": "The URL of the page visited"
@@ -50,7 +46,6 @@
     "userID",
     "url",
     "title",
-    "textContent",
-    "privateWindow"
+    "textContent"
   ]
 }

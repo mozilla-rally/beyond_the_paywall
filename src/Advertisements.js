@@ -69,6 +69,9 @@ export async function startMeasurement ({
       adInfo['visitId'] = adInfo.pageId
       delete adInfo.pageId
       
+      //Delete TabID
+      delete adInfo.tabId
+      
       // If its dev mode, store locally.  Otherwise, ping rally.
       if (is_dev_mode){
         browser.storage.local.set({[pageId]:adInfo})
