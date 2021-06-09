@@ -16,13 +16,12 @@ export const advertisementRequiredEvents = [
 ]
 
 export const articleContentRequiredEvents = [
-  "type", "visitId", "userID","url","title","textContent","privateWindow"
+  "type", "visitId", "userID","url","title","textContent"
 ]
 
 export const pageNavRequiredEvents = [
   "type","visitId","userID","url", "referrer","pageVisitStartTime","pageVisitStopTime",
-  "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth",
-  "privateWindow"
+  "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth"
 ]
 
 export const pageNavSensitiveRequiredEvents = [
@@ -106,10 +105,6 @@ export const articleContentEventProperties = {
         "type": "string",
         "description": "The text contents of the article on the page."
       },
-      "privateWindow": {
-        "type": "boolean",
-        "description": "Was this page visited in  a private window?"
-      },
       "url": {
         "type": "string",
         "description": "The URL of the page visited"
@@ -148,10 +143,6 @@ export const pageNavEventProperties = {
       "maxRelativeScrollDepth": {
         "type": "number",
         "description": "The largest depth reach on the page, as a proportion of the total page height"
-      },
-      "privateWindow": {
-        "type": "boolean",
-        "description": "Was this page visited in  a private window?"
       },
       "url": {
         "type": "string",

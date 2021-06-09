@@ -49,6 +49,9 @@
       pageData['visitId'] = pageData.pageId
       delete pageData.pageId
       
+      //Remove private window field
+      delete pageData.privateWindow
+
       // If its dev mode, save locally.  Otherwise, ping rally
       if ( is_dev_mode ){
         browser.storage.local.set({[pageId]:pageData})
