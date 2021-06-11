@@ -1,5 +1,5 @@
-# Study: Demand for Local News Source
-This repository contains the extension code for Greg Martin's study to be hosted by Mozilla Rally.
+# Study: Beyond the Paywall
+This repository contains the extension code for Greg Martin and Shoshana Vasserman's study to be hosted by Mozilla Rally.
 
 ## What's in this repo?
 
