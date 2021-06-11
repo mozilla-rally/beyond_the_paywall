@@ -2,14 +2,14 @@
   "description": "Local News Demand Study",
   "author": "Stanford GSB",
   "manifest_version": 2,
-  "name": "Local News Demand Study",
+  "name": "Beyond the Paywall",
   "version": "0.1",
-  "homepage_url": "https://github.com/bchivers-stanford/local_news_demand",
+  "homepage_url": "https://code.stanford.edu/gjmartin/beyond_the_paywall/",
   
     
   "browser_specific_settings": {
     "gecko": {
-      "id": "local-news-demand@rally.mozilla.org",
+      "id": "beyond-the-paywall@rally.mozilla.org",
       "strict_min_version": "87.0"
     }
   },
