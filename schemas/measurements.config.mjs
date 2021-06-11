@@ -20,17 +20,17 @@ export const articleContentRequiredEvents = [
 ]
 
 export const pageNavRequiredEvents = [
-  "type","visitId","userId","url", "referrer","pageVisitStartTime","pageVisitStopTime",
+  "type","visitId","userId","url", "referrer","visitDuration","visitStartDate","visitStartHour",
   "attentionDuration","audioDuration","attentionAndAudioDuration","maxRelativeScrollDepth"
 ]
 
 export const pageNavSensitiveRequiredEvents = [
-  "type","userId","domain", "pageVisitStartTime","pageVisitStopTime"
+  "type","userId","domain", "visitDuration","visitStartDate","visitStartHour"
 ]
 
 
 export const totalTimingRequiredEvents = [
-  "type","userId","pageVisitStartTime","pageVisitStopTime","attentionDuration"
+  "type","userId","visitDuration","visitStartDate","visitStartHour","attentionDuration"
 ]
 
 export const advertisementEventProperties = {
@@ -120,13 +120,17 @@ export const pageNavEventProperties = {
       "type":"string",
       "description": "The page that referred the user to the current page"
     },
-    "pageVisitStartTime": {
+    "visitDuration": {
         "type": "integer",
-        "description": "unix timestamp (in ms) of the page visit start"
+        "description": "Duration of visit in milliseconds"
       },
-      "pageVisitStopTime": {
+      "visitStartDate": {
+        "type": "string",
+        "description": "The local date in the format YYYY-MM-DD"
+      },
+      "visitStartHour": {
         "type": "integer",
-        "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
+        "description": "The hour of the visit in local time (from 0-23)"
       },
       "attentionDuration": {
         "type": "integer",
@@ -151,14 +155,18 @@ export const pageNavEventProperties = {
 }
 
 export const pageNavSensitiveEventProperties = {
-  "pageVisitStartTime": {
-      "type": "integer",
-      "description": "unix timestamp (in ms) of the page visit start"
-    },
-    "pageVisitStopTime": {
-      "type": "integer",
-      "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
-    },
+  "visitDuration": {
+    "type": "integer",
+    "description": "Duration of visit in milliseconds"
+  },
+  "visitStartDate": {
+    "type": "string",
+    "description": "The local date in the format YYYY-MM-DD"
+  },
+  "visitStartHour": {
+    "type": "integer",
+    "description": "The hour of the visit in local time (from 0-23)"
+  },
     "domain": {
       "type": "string",
       "description": "The URL of the page visited.  This URL has been stripped to only include the domain"
@@ -166,13 +174,17 @@ export const pageNavSensitiveEventProperties = {
 }
 
 export const totalTimingEventProperties = {
-    "pageVisitStartTime": {
+      "visitDuration": {
         "type": "integer",
-        "description": "unix timestamp (in ms) of the page visit start"
+        "description": "Duration of visit in milliseconds"
       },
-      "pageVisitStopTime": {
+      "visitStartDate": {
+        "type": "string",
+        "description": "The local date in the format YYYY-MM-DD"
+      },
+      "visitStartHour": {
         "type": "integer",
-        "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
+        "description": "The hour of the visit in local time (from 0-23)"
       },
       "attentionDuration": {
         "type": "integer",

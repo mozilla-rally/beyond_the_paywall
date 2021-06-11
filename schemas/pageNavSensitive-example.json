@@ -1,7 +1,8 @@
 {
-    "type": "WebScience.pageNavSensitive",
-    "userId": "7a367510-5fcc-4313-b70f-117fa3e2f027",
-    "domain": "https://scholar.google.com",
-    "pageVisitStartTime": 1623271477206,
-    "pageVisitStopTime": 1623271481739
-  }
+  "type": "WebScience.pageNavSensitive",
+  "userId": "87edcae3-4680-4960-8c39-6506fd4ed22c",
+  "domain": "https://scholar.google.com",
+  "visitDuration": 2019,
+  "visitStartDate": "2021-06-11",
+  "visitStartHour": 14
+}

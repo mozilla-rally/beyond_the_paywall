@@ -38,8 +38,9 @@ export async function startMeasurement ({
       output = {
         "userId": ''+surveyUserID, 
         "type":'WebScience.totalTiming',
-        "pageVisitStartTime":pageData.pageVisitStartTime,
-        "pageVisitStopTime":pageData.pageVisitStopTime,
+        "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
+        "visitStartDate": formatDate(pageData.pageVisitStartTime),
+        "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
         "attentionDuration":pageData.attentionDuration
       }
       //If we're in dev mode, store locally. Otherwise, ping rally.
@@ -72,4 +73,24 @@ export async function startMeasurement ({
     return urlString;
   }
 
+}
+
+/**
+ * Function: formatDate
+ *  This function formats the timestamp to YYYY-MM-DD
+ * @param {string} date -timestamp
+ * returns a string, the date formatted YYYY-MM-DD
+ */
+ function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
 }

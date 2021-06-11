@@ -42,8 +42,9 @@ export async function startMeasurement ({
         "visitId" : pageData.pageId,
         "url": pageData.url,
         "referrer": fullURLminusQueryString(pageData.referrer),
-        "pageVisitStartTime": pageData.pageVisitStartTime,
-        "pageVisitStopTime": pageData.pageVisitStopTime,
+        "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
+        "visitStartDate": formatDate(pageData.pageVisitStartTime),
+        "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
         "attentionDuration": pageData.attentionDuration,
         "audioDuration": pageData.audioDuration,
         "attentionAndAudioDuration": pageData.attentionAndAudioDuration,
@@ -79,4 +80,24 @@ export async function startMeasurement ({
     return urlString;
   }
 
+}
+
+/**
+ * Function: formatDate
+ *  This function formats the timestamp to YYYY-MM-DD
+ * @param {string} date -timestamp
+ * returns a string, the date formatted YYYY-MM-DD
+ */
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
 }

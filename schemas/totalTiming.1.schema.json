@@ -23,13 +23,17 @@
       "type": "string",
       "description": "a unique ID associated with a participant."
     },
-    "pageVisitStartTime": {
+    "visitDuration": {
       "type": "integer",
-      "description": "unix timestamp (in ms) of the page visit start"
+      "description": "Duration of visit in milliseconds"
     },
-    "pageVisitStopTime": {
+    "visitStartDate": {
+      "type": "string",
+      "description": "The local date in the format YYYY-MM-DD"
+    },
+    "visitStartHour": {
       "type": "integer",
-      "description": "unix timestamp (in ms) of the page visit end. NOTE: this field will not necessarily represent the page visit stop time, just the largest time value at the time of the event creation. For a given page id, look for the largest value of pageVisitStopTime to get more accurate information."
+      "description": "The hour of the visit in local time (from 0-23)"
     },
     "attentionDuration": {
       "type": "integer",
@@ -39,8 +43,9 @@
   "required": [
     "type",
     "userId",
-    "pageVisitStartTime",
-    "pageVisitStopTime",
+    "visitDuration",
+    "visitStartDate",
+    "visitStartHour",
     "attentionDuration"
   ]
 }

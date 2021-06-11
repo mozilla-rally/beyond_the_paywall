@@ -1,13 +1,14 @@
 {
   "type": "WebScience.pageNav",
-  "userId": "7a367510-5fcc-4313-b70f-117fa3e2f027",
-  "visitId": "4caccb6e-7ae8-42e8-bd3c-c6253713801a",
+  "userId": "87edcae3-4680-4960-8c39-6506fd4ed22c",
+  "visitId": "9596dc1f-8fd2-4df0-b802-b7030fca6ce1",
   "url": "https://www.yourbigsky.com/",
   "referrer": "",
-  "pageVisitStartTime": 1623271436192,
-  "pageVisitStopTime": 1623271449198,
-  "attentionDuration": 12520,
+  "visitDuration": 9676,
+  "visitStartDate": "2021-06-11",
+  "visitStartHour": 14,
+  "attentionDuration": 8832,
   "audioDuration": 0,
   "attentionAndAudioDuration": 0,
-  "maxRelativeScrollDepth": 0.21491891891891893
+  "maxRelativeScrollDepth": 0.2648648648648649
 }

@@ -1,7 +1,8 @@
 {
-  "userId": "b54f5af5-5f3d-49af-be29-2889c1fc9efe",
+  "userId": "87edcae3-4680-4960-8c39-6506fd4ed22c",
   "type": "WebScience.totalTiming",
-  "pageVisitStartTime": 1623271864235,
-  "pageVisitStopTime": 1623271870989,
-  "attentionDuration": 6393
+  "visitDuration": 9676,
+  "visitStartDate": "2021-06-11",
+  "visitStartHour": 14,
+  "attentionDuration": 8832
 }
