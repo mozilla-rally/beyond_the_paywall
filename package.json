@@ -39,16 +39,16 @@
   "description": "A Rally study on how web users interact with different news outlets over time.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bchivers-stanford/local_news_demand.git"
+    "url": "git+https://code.stanford.edu/gjmartin/beyond_the_paywall/beyond_the_paywall.git"
   },
   "keywords": [],
   "author": "Researchers at Stanford GSB",
   "license": "MPL-2.0",
   "private": true,
   "bugs": {
-    "url": "https://github.com/bchivers-stanford/local_news_demand/issues"
+    "url": "https://code.stanford.edu/gjmartin/beyond_the_paywall/issues"
   },
-  "homepage": "https://github.com/bchivers-stanford/local_news_demand",
+  "homepage": "https://code.stanford.edu/gjmartin/beyond_the_paywall/",
   "dependencies": {
     "@mozilla/readability": "^0.4.1",
     "@rollup/plugin-url": "^6.0.0",
