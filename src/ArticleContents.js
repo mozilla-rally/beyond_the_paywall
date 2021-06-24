@@ -30,31 +30,22 @@
  
    // Handle onTextParsed event callbacks
    webScience.pageText.onTextParsed.addListener(async (pageData) => {
-    // Grab the survey status
-    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
-    
-    // If the survey has been completed
-    if (surveyStatus=="completed"){
-      let surveyUserID = await webScience.userSurvey.getSurveyId()
-      output = {
-        "type" : "WebScience.articleContents",
-        "visitId" : pageData.pageId,
-        "userId" :  ''+surveyUserID,
-        "url" : pageData.url,
-        "title" : pageData.title,
-        "textContent" : pageData.textContent
-      }
-      // If its dev mode, save locally.  Otherwise, ping rally
-      if ( is_dev_mode ){
-        //pageID here is used as a unique key for local key/value storage
-        let pageId = "WebScience.ArticleContents."+pageData.pageId
-        browser.storage.local.set({[pageId]:output})
-      } else {
-        rally.sendPing("articleContent", output);
-      }
-    // If the survey isn't completed, send this message and move on.
+    let surveyUserID = await webScience.userSurvey.getSurveyId()
+    output = {
+      "type" : "WebScience.articleContents",
+      "visitId" : pageData.pageId,
+      "userId" :  ''+surveyUserID,
+      "url" : pageData.url,
+      "title" : pageData.title,
+      "textContent" : pageData.textContent
+    }
+    // If its dev mode, save locally.  Otherwise, ping rally
+    if ( is_dev_mode ){
+      //pageID here is used as a unique key for local key/value storage
+      let pageId = "WebScience.ArticleContents."+pageData.pageId
+      browser.storage.local.set({[pageId]:output})
     } else {
-      console.log("Survey not completed")
+      rally.sendPing("articleContent", output);
     }
    }, {
      matchPatterns: webScience.matching.domainsToMatchPatterns(domains)

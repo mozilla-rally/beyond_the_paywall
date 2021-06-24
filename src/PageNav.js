@@ -30,36 +30,29 @@ export async function startMeasurement ({
 
   //Handles PageNavigation callbacks
   webScience.pageNavigation.onPageData.addListener(async (pageData) => {
-    //Get Survey Status
-    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
-    // If survey is completed
-    if (surveyStatus=="completed"){
-      //Grab surveyUserID and set it in JSON
-      let surveyUserID = await webScience.userSurvey.getSurveyId()
-      output = {
-        "type" : 'WebScience.pageNav',
-        "userId" : ''+surveyUserID,
-        "visitId" : pageData.pageId,
-        "url": pageData.url,
-        "referrer": fullURLminusQueryString(pageData.referrer),
-        "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
-        "visitStartDate": formatDate(pageData.pageVisitStartTime),
-        "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
-        "attentionDuration": pageData.attentionDuration,
-        "audioDuration": pageData.audioDuration,
-        "attentionAndAudioDuration": pageData.attentionAndAudioDuration,
-        "maxRelativeScrollDepth": pageData.maxRelativeScrollDepth
-      }
-      //If we're in dev mode, store locally. Otherwise, ping rally.
-      if (is_dev_mode){
-        // The pageID here is a unique key to be used for local key-value storage
-        let pageId = "WebScience.PageNav."+pageData.pageId.toString()
-        browser.storage.local.set({[pageId]:output})
-      } else {
-        rally.sendPing("pageNav", output);
-      }
+    //Grab surveyUserID and set it in JSON
+    let surveyUserID = await webScience.userSurvey.getSurveyId()
+    output = {
+      "type" : 'WebScience.pageNav',
+      "userId" : ''+surveyUserID,
+      "visitId" : pageData.pageId,
+      "url": pageData.url,
+      "referrer": fullURLminusQueryString(pageData.referrer),
+      "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
+      "visitStartDate": formatDate(pageData.pageVisitStartTime),
+      "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
+      "attentionDuration": pageData.attentionDuration,
+      "audioDuration": pageData.audioDuration,
+      "attentionAndAudioDuration": pageData.attentionAndAudioDuration,
+      "maxRelativeScrollDepth": pageData.maxRelativeScrollDepth
+    }
+    //If we're in dev mode, store locally. Otherwise, ping rally.
+    if (is_dev_mode){
+      // The pageID here is a unique key to be used for local key-value storage
+      let pageId = "WebScience.PageNav."+pageData.pageId.toString()
+      browser.storage.local.set({[pageId]:output})
     } else {
-      console.log("Survey not completed")
+      rally.sendPing("pageNav", output);
     }
   }, {
     matchPatterns: webScience.matching.domainsToMatchPatterns(domains)

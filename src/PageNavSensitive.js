@@ -34,32 +34,25 @@ export async function startMeasurement ({
 
   //Handles onPageData callbacks
   webScience.pageNavigation.onPageData.addListener(async (pageData) => {
-    // Get survey status
-    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
-    // If Completed
-    if (surveyStatus=="completed"){
-      // Grab surveyUserID and set it in data
-      let surveyUserID = await webScience.userSurvey.getSurveyId()
-      output = {
-        "type" : 'WebScience.pageNavSensitive',
-        "userId" : ''+surveyUserID,
-        "domain" : fullURLtoBaseURL(pageData.url),
-        "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
-        "visitStartDate": formatDate(pageData.pageVisitStartTime),
-        "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
+    // Grab surveyUserID and set it in data
+    let surveyUserID = await webScience.userSurvey.getSurveyId()
+    output = {
+      "type" : 'WebScience.pageNavSensitive',
+      "userId" : ''+surveyUserID,
+      "domain" : fullURLtoBaseURL(pageData.url),
+      "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
+      "visitStartDate": formatDate(pageData.pageVisitStartTime),
+      "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
 
-      }
-      
-      // If dev mode, set data locally. Otherwise, ping rally.
-      if (is_dev_mode){
-        // PageID here is a unique key for local key-value storage
-        let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
-        browser.storage.local.set({[pageId]:output})
-      } else {
-        rally.sendPing("pageNavSensitive", output);
-      }
+    }
+    
+    // If dev mode, set data locally. Otherwise, ping rally.
+    if (is_dev_mode){
+      // PageID here is a unique key for local key-value storage
+      let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
+      browser.storage.local.set({[pageId]:output})
     } else {
-      console.log("Survey not completed")
+      rally.sendPing("pageNavSensitive", output);
     }
   }, {
     matchPatterns: webScience.matching.domainsToMatchPatterns(domains)

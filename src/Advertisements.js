@@ -50,30 +50,21 @@ export async function startMeasurement ({
 
   // Handle advertisement callbacks
   webScience.messaging.onMessage.addListener( async (adInfo, sender, sendResponse) => {
-    // Get the survey status
-    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
-
-    // If the survey is complete
-    if (surveyStatus=="completed"){
-      let surveyUserID = await webScience.userSurvey.getSurveyId()
-      output = {
-        "type" : "WebScience.advertisements",
-        "userId" : ''+surveyUserID,
-        "visitId" : adInfo.pageId,
-        "url" : webScience.matching.normalizeUrl(sender.url),
-        "body" : adInfo.body,
-        "ads" : adInfo.ads
-      }
-      if (is_dev_mode){
-        // pageID is a unique ID for the browser key/value storage
-        let pageId = "WebScience.Advertisements."+adInfo.pageId
-        browser.storage.local.set({[pageId]:output})
-      } else {
-        rally.sendPing("advertisement", output);
-      }
-    // If the survey isn't completed, just log this message and move on
+    let surveyUserID = await webScience.userSurvey.getSurveyId()
+    output = {
+      "type" : "WebScience.advertisements",
+      "userId" : ''+surveyUserID,
+      "visitId" : adInfo.pageId,
+      "url" : webScience.matching.normalizeUrl(sender.url),
+      "body" : adInfo.body,
+      "ads" : adInfo.ads
+    }
+    if (is_dev_mode){
+      // pageID is a unique ID for the browser key/value storage
+      let pageId = "WebScience.Advertisements."+adInfo.pageId
+      browser.storage.local.set({[pageId]:output})
     } else {
-      console.log("Survey not completed")
+      rally.sendPing("advertisement", output);
     }
   }, {
     type: 'WebScience.advertisements',

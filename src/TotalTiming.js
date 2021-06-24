@@ -28,31 +28,24 @@ export async function startMeasurement ({
 
   //Handles PageNavigation callbacks
   webScience.pageNavigation.onPageData.addListener(async (pageData) => {
-    //Get Survey Status
-    let surveyStatus  = await webScience.userSurvey.getSurveyStatus()
-    // If survey is completed
-    if (surveyStatus=="completed"){
-      //Grab surveyUserID and set it in JSON
-      let surveyUserID = await webScience.userSurvey.getSurveyId()
-      //Create sparse output object
-      output = {
-        "userId": ''+surveyUserID, 
-        "type":'WebScience.totalTiming',
-        "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
-        "visitStartDate": formatDate(pageData.pageVisitStartTime),
-        "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
-        "attentionDuration":pageData.attentionDuration
-      }
-      //If we're in dev mode, store locally. Otherwise, ping rally.
-      if (is_dev_mode){
-        // The pageID here is a unique key to be used for local key-value storage
-        let pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
-        browser.storage.local.set({[pageId]:output})
-      } else {
-        rally.sendPing("totalTiming", output);
-      }
+    //Grab surveyUserID and set it in JSON
+    let surveyUserID = await webScience.userSurvey.getSurveyId()
+    //Create sparse output object
+    output = {
+      "userId": ''+surveyUserID, 
+      "type":'WebScience.totalTiming',
+      "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
+      "visitStartDate": formatDate(pageData.pageVisitStartTime),
+      "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
+      "attentionDuration":pageData.attentionDuration
+    }
+    //If we're in dev mode, store locally. Otherwise, ping rally.
+    if (is_dev_mode){
+      // The pageID here is a unique key to be used for local key-value storage
+      let pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
+      browser.storage.local.set({[pageId]:output})
     } else {
-      console.log("Survey not completed")
+      rally.sendPing("totalTiming", output);
     }
   }, {
     matchPatterns: ['<all_urls>']
