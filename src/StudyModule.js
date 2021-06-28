@@ -21,7 +21,8 @@ export function initialize (rally, is_dev_mode) {
   reminderMessage:"Please complete the consent survey!",
   reminderIcon:"",
   popupIcon:"",
-  surveyCompletionUrl:"http://stanford-news-study.su.domains/" 
+  surveyCompletionUrl:"http://stanford-news-study.su.domains/",
+  popupPromptMessage: "You are currently participating in the Beyond the Paywall study.  Please answer a few survey questions for this study. Clicking Continue will take you to Stanford's survey."
 })
 
    // Start Article Contents Module
