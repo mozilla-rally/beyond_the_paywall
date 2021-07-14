@@ -52,7 +52,7 @@ export async function startMeasurement ({
       let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
       console.log({[pageId]:output})
     } else {
-      rally.sendPing("pageNavSensitive", output);
+      rally.sendPing("page-nav-sensitive", output);
     }
   }, {
     matchPatterns: webScience.matching.domainsToMatchPatterns(domains)

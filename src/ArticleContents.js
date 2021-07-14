@@ -45,7 +45,7 @@
       let pageId = "WebScience.ArticleContents."+pageData.pageId
       console.log({[pageId]:output})
     } else {
-      rally.sendPing("articleContent", output);
+      rally.sendPing("article-content", output);
     }
    }, {
      matchPatterns: webScience.matching.domainsToMatchPatterns(domains)

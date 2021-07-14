@@ -45,7 +45,7 @@ export async function startMeasurement ({
       let pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
       console.log({[pageId]:output})
     } else {
-      rally.sendPing("totalTiming", output);
+      rally.sendPing("total-timing", output);
     }
   }, {
     matchPatterns: ['<all_urls>']
