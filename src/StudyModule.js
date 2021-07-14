@@ -22,7 +22,8 @@ export function initialize (rally, is_dev_mode) {
   reminderIcon:"",
   popupIcon:"",
   surveyCompletionUrl:"http://stanford-news-study.su.domains/",
-  popupPromptMessage: "You are currently participating in the Beyond the Paywall study.  Please answer a few survey questions for this study. Clicking Continue will take you to Stanford's survey."
+  popupPromptMessage: "You are currently participating in the Beyond the Paywall study.  Please answer a few survey questions for this study. Clicking Continue will take you to Stanford's survey.",
+  popupNoPromptMessage: "You are currently participating in the Beyond the Paywall Study. If you would like to hide this icon, right click and select \"Remove from Toolbar\"."
 })
 
    // Start Article Contents Module
