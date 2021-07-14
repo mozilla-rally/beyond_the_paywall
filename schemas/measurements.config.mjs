@@ -55,7 +55,7 @@ export const advertisementEventProperties = {
     "ads": {
         "type": "array",
         "description": "This array contains an object per advertisement found",
-        "properties":{
+        "items":{
           "ads.id": {
             "type": "string",
             "description": "The ID of the ad, if listed in the HTML element"
