@@ -43,7 +43,7 @@
     if ( is_dev_mode ){
       //pageID here is used as a unique key for local key/value storage
       let pageId = "WebScience.ArticleContents."+pageData.pageId
-      browser.storage.local.set({[pageId]:output})
+      console.log({[pageId]:output})
     } else {
       rally.sendPing("articleContent", output);
     }

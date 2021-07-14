@@ -50,7 +50,7 @@ export async function startMeasurement ({
     if (is_dev_mode){
       // PageID here is a unique key for local key-value storage
       let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
-      browser.storage.local.set({[pageId]:output})
+      console.log({[pageId]:output})
     } else {
       rally.sendPing("pageNavSensitive", output);
     }

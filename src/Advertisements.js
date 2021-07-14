@@ -62,7 +62,7 @@ export async function startMeasurement ({
     if (is_dev_mode){
       // pageID is a unique ID for the browser key/value storage
       let pageId = "WebScience.Advertisements."+adInfo.pageId
-      browser.storage.local.set({[pageId]:output})
+      console.log({[pageId]:output})
     } else {
       rally.sendPing("advertisement", output);
     }
