@@ -30,11 +30,11 @@
  
    // Handle onTextParsed event callbacks
    webScience.pageText.onTextParsed.addListener(async (pageData) => {
-    let surveyUserID = await webScience.userSurvey.getSurveyId()
-    output = {
+    const surveyUserID = await webScience.userSurvey.getSurveyId()
+    const output = {
       "type" : "WebScience.articleContents",
       "visitId" : pageData.pageId,
-      "userId" :  ''+surveyUserID,
+      "userId" :  ""+surveyUserID,
       "url" : pageData.url,
       "title" : pageData.title,
       "textContent" : pageData.textContent
@@ -42,7 +42,7 @@
     // If its dev mode, save locally.  Otherwise, ping rally
     if ( is_dev_mode ){
       //pageID here is used as a unique key for local key/value storage
-      let pageId = "WebScience.ArticleContents."+pageData.pageId
+      const pageId = "WebScience.ArticleContents."+pageData.pageId
       console.log({[pageId]:output})
     } else {
       rally.sendPing("article-content", output);

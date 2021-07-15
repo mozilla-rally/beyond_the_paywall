@@ -5,13 +5,13 @@
 // StudyModule.js, Brian Chivers 3/19/2021
 // This module starts all the WebScience modules, which collect
 // data for this study
-import * as PageText from './ArticleContents.js'
-import * as Advertisements from './Advertisements.js'
-import * as PageNav from './PageNav.js'
-import * as PageNavSensitive from './PageNavSensitive.js'
-import * as TotalTiming from './TotalTiming.js'
+import * as PageText from "./ArticleContents.js"
+import * as Advertisements from "./Advertisements.js"
+import * as PageNav from "./PageNav.js"
+import * as PageNavSensitive from "./PageNavSensitive.js"
+import * as TotalTiming from "./TotalTiming.js"
 import * as webScience from "@mozilla/web-science";
-import {sensitiveDomains, destinationDomains} from './domains'
+import {sensitiveDomains, destinationDomains} from "./domains"
 
 export function initialize (rally, is_dev_mode) {
   // Set UserSurvey

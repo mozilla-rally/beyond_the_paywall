@@ -35,10 +35,10 @@ export async function startMeasurement ({
   //Handles onPageData callbacks
   webScience.pageNavigation.onPageData.addListener(async (pageData) => {
     // Grab surveyUserID and set it in data
-    let surveyUserID = await webScience.userSurvey.getSurveyId()
-    output = {
-      "type" : 'WebScience.pageNavSensitive',
-      "userId" : ''+surveyUserID,
+    const surveyUserID = await webScience.userSurvey.getSurveyId()
+    const output = {
+      "type" : "WebScience.pageNavSensitive",
+      "userId" : ""+surveyUserID,
       "domain" : fullURLtoBaseURL(pageData.url),
       "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
       "visitStartDate": formatDate(pageData.pageVisitStartTime),
@@ -49,7 +49,7 @@ export async function startMeasurement ({
     // If dev mode, set data locally. Otherwise, ping rally.
     if (is_dev_mode){
       // PageID here is a unique key for local key-value storage
-      let pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
+      const pageId = "WebScience.PageNavSensitive."+pageData.pageId.toString()
       console.log({[pageId]:output})
     } else {
       rally.sendPing("page-nav-sensitive", output);
@@ -68,10 +68,10 @@ export async function startMeasurement ({
  */
 function fullURLtoBaseURL(urlString){
   if(urlString){
-    var pathArray = urlString.split( '/' );
-    var protocol = pathArray[0];
-    var host = pathArray[2];
-    var url = protocol + '//' + host;
+    const pathArray = urlString.split( "/" );
+    const protocol = pathArray[0];
+    const host = pathArray[2];
+    const url = protocol + "//" + host;
 
     return url
   } else {
@@ -86,15 +86,15 @@ function fullURLtoBaseURL(urlString){
  * returns a string, the date formatted YYYY-MM-DD
  */
  function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+  const d = new Date(date);
+  let month = "" + (d.getMonth() + 1);
+  let day = "" + d.getDate();
+  const year = d.getFullYear();
 
   if (month.length < 2) 
-      month = '0' + month;
+      {month = "0" + month;}
   if (day.length < 2) 
-      day = '0' + day;
+      {day = "0" + day;}
 
-  return [year, month, day].join('-');
+  return [year, month, day].join("-");
 }

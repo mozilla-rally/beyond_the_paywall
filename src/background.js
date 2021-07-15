@@ -13,11 +13,11 @@ import { Rally } from "@mozilla/rally";
 // Import the study module, which does all the work
 import {
   initialize 
-} from './StudyModule';
+} from "./StudyModule";
 
 // Initialize the Rally object
 const rally = new Rally();
-const DEV_MODE = true;
+const DEV_MODE = __ENABLE_DEVELOPER_MODE__;
 rally.initialize(
   // A sample key id used for encrypting data.
   "sample-invalid-key-id",
@@ -32,13 +32,7 @@ rally.initialize(
   // The following constant is automatically provided by
   // the build system.
   __ENABLE_DEVELOPER_MODE__,  
-  (newState) => {
-    if (newState === runStates.RUNNING) {
-      console.log("The study can run.");
-    } else {
-      console.log("The study must stop.");
-    }
-  }
+  stateChangeCallback
 ).then(resolve => {
   // Initialize the study and start it.
   initialize(rally, DEV_MODE);
@@ -46,3 +40,7 @@ rally.initialize(
   // Do not start the study in this case. Something
   // went wrong.
 });
+
+function stateChangeCallback(newState) {
+  console.log(newState);
+}

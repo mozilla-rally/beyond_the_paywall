@@ -73,7 +73,7 @@ export default (cliArgs) => {
   // background script might want to reference the bundled
   // scripts (e.g., browser.contentScripts.register() or new
   // Worker()).
-  const scriptPaths = globby.sync([ `src/**/*.content.js`, `src/**/*.worker.js` ]);
+  const scriptPaths = globby.sync([ "src/**/*.content.js", "src/**/*.worker.js" ]);
   for(const scriptPath of scriptPaths) {
     rollupConfig.push({
       input: scriptPath,

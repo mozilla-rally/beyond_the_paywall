@@ -31,10 +31,10 @@ export async function startMeasurement ({
   //Handles PageNavigation callbacks
   webScience.pageNavigation.onPageData.addListener(async (pageData) => {
     //Grab surveyUserID and set it in JSON
-    let surveyUserID = await webScience.userSurvey.getSurveyId()
-    output = {
-      "type" : 'WebScience.pageNav',
-      "userId" : ''+surveyUserID,
+    const surveyUserID = await webScience.userSurvey.getSurveyId()
+    const output = {
+      "type" : "WebScience.pageNav",
+      "userId" : ""+surveyUserID,
       "visitId" : pageData.pageId,
       "url": pageData.url,
       "referrer": fullURLminusQueryString(pageData.referrer),
@@ -49,7 +49,7 @@ export async function startMeasurement ({
     //If we're in dev mode, store locally. Otherwise, ping rally.
     if (is_dev_mode){
       // The pageID here is a unique key to be used for local key-value storage
-      let pageId = "WebScience.PageNav."+pageData.pageId.toString()
+      const pageId = "WebScience.PageNav."+pageData.pageId.toString()
       console.log({[pageId]:output})
     } else {
       rally.sendPing("page-nav", output);
@@ -82,15 +82,15 @@ export async function startMeasurement ({
  * returns a string, the date formatted YYYY-MM-DD
  */
 function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+  const d = new Date(date);
+  let month = "" + (d.getMonth() + 1);
+  let day = "" + d.getDate();
+  const year = d.getFullYear();
 
   if (month.length < 2) 
-      month = '0' + month;
+      {month = "0" + month;}
   if (day.length < 2) 
-      day = '0' + day;
+      {day = "0" + day;}
 
-  return [year, month, day].join('-');
+  return [year, month, day].join("-");
 }

@@ -2,8 +2,43 @@
  * Content script to extract advertisement info from a page
  * @module WebScience.Measurements.content-scripts.page-ads
  */
-// Function encapsulation to maintain unique variable scope for each content script
+// ad_css_selectors -  Brian Chivers, 3/19/2021
+// This file contains the CSS Selectors to identify ads
+//
+// Originally, this file contained most of the CSS selectors from:
+//        https://easylist.to/
+// that were used by AdBlocker.  
+//
+// After some experimentation, the selectors below were chosen to 
+// identify unique ads the best.
+const adCssSelectors = [
+  ".ad--desktop",
+  ".ad",
+  "iframe[src][width]",
+  "div > iframe",
+  "iframe[scrolling]",
+  "iframe[src]",
+  ".trc_rbox",
+  ".trc_rbox_div",
+  ".advertisment",
+  ".advads_ad_widget-1",
+  ".advads_ad_widget-2",
+  ".advads_ad_widget-3",
+  ".advads_ad_widget-4",
+  ".advads_ad_widget-5",
+  ".advads_ad_widget-6",
+  ".sam_ad",
+  ".widget_sp_image",
+  ".trc_related_container",
+  ".ctpl-duplicated-ad",
+  ".advert-wide",
+  ".advert-tall",
+  ".advert-box",
+  ".tnt-ads",
+  ".advertisement-content"
+]
 
+// Function encapsulation to maintain unique variable scope for each content script
 const pageAds = function () {
 
       const pageManager = window.webScience.pageManager;
@@ -36,18 +71,18 @@ const pageAds = function () {
           data_sent=true;
       }
       // Ads - the current list of advertisements
-      var ads = [];
+      let ads = [];
       // Ad length -  a running list of the number of ads
       // This is used for retry logic
-      var ad_length = [];
+      const ad_length = [];
 
       // parsed and data_sent are variables to see if the doc has been parsed yet
       // or if the ad data has been sent
       //
       // These variables are used to determine how to behave when a user
       // navigates away from a page quickly
-      var parsed = false;
-      var data_sent = false;
+      let parsed = false;
+      let data_sent = false;
       // Function: parseDocumentForAds
       // This function searches the document using the CSS selectors
       // It only grabs DIVs and IFRAMES with non-zero cleintHeight and clientWidth info
@@ -56,16 +91,16 @@ const pageAds = function () {
       // Saves final data to global ads variable
       function parseDocumentForAds (evt) {
         // Grab all elements using CSS selectors, and filter out only DIVs and Iframes
-        let current_ads = [];
+        const current_ads = [];
         // For every ad selector
-        for (var i = 0; i < adCssSelectors.length; ++i) {
+        for (let i = 0; i < adCssSelectors.length; ++i) {
           try {
-            let ad = document.querySelectorAll(adCssSelectors[i]);
+            const ad = document.querySelectorAll(adCssSelectors[i]);
             // If the selector returns results
             if(ad.length !== 0) {
               // For every result
-              for (var j = 0; j < ad.length; ++j) {
-                this_ad = ad[j]
+              for (let j = 0; j < ad.length; ++j) {
+                const this_ad = ad[j]
 
                 // If it has nonzero clientHeight and clientWidth
                 if(this_ad.clientHeight!=0 && this_ad.clientWidth!=0 ){
@@ -80,14 +115,14 @@ const pageAds = function () {
         }
 
         // Go through list of ads, and pull out only elements that are not parents
-        let children = [];
+        const children = [];
         // For every current ad
-        for (var i = 0; i < current_ads.length; ++i) {
+        for (let i = 0; i < current_ads.length; ++i) {
           let is_parent=false;
-          this_ad = current_ads[i];
+          const this_ad = current_ads[i];
           // For every other current ad
-          for (var j = 0; j < current_ads.length; ++j) {
-            ad_to_compare = current_ads[j];
+          for (let j = 0; j < current_ads.length; ++j) {
+            const ad_to_compare = current_ads[j];
             if(ad_to_compare!==this_ad){
               // Check if its a parent
               if(this_ad.contains(ad_to_compare)){
@@ -102,9 +137,9 @@ const pageAds = function () {
         }
 
         //Go through child elements, and pull data
-        let ad_data = [];
-        for (var i = 0; i < children.length; ++i) {
-          this_ad = children[i];
+        const ad_data = [];
+        for (let i = 0; i < children.length; ++i) {
+          const this_ad = children[i];
           ad_data.push({id: this_ad.id,
             tag: this_ad.tagName,
             clientHeight: this_ad.clientHeight,
@@ -115,7 +150,7 @@ const pageAds = function () {
         }
         
         // Grab unique ads
-        unique_ads = ad_data.filter((v,i,a)=>a.findIndex(t=>(JSON.stringify(t) === JSON.stringify(v)))===i);
+        const unique_ads = ad_data.filter((v,i,a)=>a.findIndex(t=>(JSON.stringify(t) === JSON.stringify(v)))===i);
 
         // Set the global vars for ads and ad_length
         ads = unique_ads;
@@ -144,7 +179,7 @@ const pageAds = function () {
           }
         }
         // Otherwise, set it up to retry
-        intervalId = setInterval(intervalFunc, updateInterval);
+        const intervalId = setInterval(intervalFunc, updateInterval);
         
       }
 

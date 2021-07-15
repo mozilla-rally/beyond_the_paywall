@@ -49,9 +49,9 @@ This file is called by `background.js`, and starts all of the collection modules
 
 These files are used to call Mozilla's WebScience module.  It's basically some clever importing/exporting to buffer the syntax changes for using WebScience.
 
-## `ad_css_selectors.js`
+## `ad_css_selectors`
 
-This file contains a list of CSS selectors used by the `Advertisements.js` module to search for ads.  It was derived from [EasyList](https://easylist.to/), which is used by AdBlocker.
+This list of CSS selectors used by the `Advertisements.js` module to search for ads.  It was derived from [EasyList](https://easylist.to/), which is used by AdBlocker. This list can now be found in `content-scripts/page-ads.js`
 
 ## `background.js`
 

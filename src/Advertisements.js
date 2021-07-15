@@ -31,7 +31,7 @@ export async function startMeasurement ({
   await webScience.pageManager.initialize();
 
   // Build the URL matching set for content scripts
-  let contentScriptMatches = webScience.matching.domainsToMatchPatterns(domains, true);
+  const contentScriptMatches = webScience.matching.domainsToMatchPatterns(domains, true);
 
   // Register the content script for measuring advertisement info
   // The CSS selectors file is needed to find ads on the page
@@ -39,21 +39,18 @@ export async function startMeasurement ({
     matches: contentScriptMatches,
     js: [
       {
-        file: '/src/ad_css_selectors.js'
-      },
-      {
-        file: '/src/content-scripts/page-ads.js'
+        file: "/src/content-scripts/page-ads.js"
       }
       ],
-    runAt: 'document_start'
+    runAt: "document_start"
   })
 
   // Handle advertisement callbacks
   webScience.messaging.onMessage.addListener( async (adInfo, sender, sendResponse) => {
-    let surveyUserID = await webScience.userSurvey.getSurveyId()
-    output = {
+    const surveyUserID = await webScience.userSurvey.getSurveyId()
+    const output = {
       "type" : "WebScience.advertisements",
-      "userId" : ''+surveyUserID,
+      "userId" : ""+surveyUserID,
       "visitId" : adInfo.pageId,
       "url" : webScience.matching.normalizeUrl(sender.url),
       "body" : adInfo.body,
@@ -61,19 +58,19 @@ export async function startMeasurement ({
     }
     if (is_dev_mode){
       // pageID is a unique ID for the browser key/value storage
-      let pageId = "WebScience.Advertisements."+adInfo.pageId
+      const pageId = "WebScience.Advertisements."+adInfo.pageId
       console.log({[pageId]:output})
     } else {
       rally.sendPing("advertisement", output);
     }
   }, {
-    type: 'WebScience.advertisements',
+    type: "WebScience.advertisements",
     schema:{
-      pageId:'string',
-      type: 'string',
-      url: 'string',
-      ads: 'object',
-      body: 'object'
+      pageId:"string",
+      type: "string",
+      url: "string",
+      ads: "object",
+      body: "object"
   }
   }
   )

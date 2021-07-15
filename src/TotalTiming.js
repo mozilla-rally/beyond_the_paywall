@@ -29,11 +29,11 @@ export async function startMeasurement ({
   //Handles PageNavigation callbacks
   webScience.pageNavigation.onPageData.addListener(async (pageData) => {
     //Grab surveyUserID and set it in JSON
-    let surveyUserID = await webScience.userSurvey.getSurveyId()
+    const surveyUserID = await webScience.userSurvey.getSurveyId()
     //Create sparse output object
-    output = {
-      "userId": ''+surveyUserID, 
-      "type":'WebScience.totalTiming',
+    const output = {
+      "userId": ""+surveyUserID, 
+      "type":"WebScience.totalTiming",
       "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
       "visitStartDate": formatDate(pageData.pageVisitStartTime),
       "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
@@ -42,30 +42,14 @@ export async function startMeasurement ({
     //If we're in dev mode, store locally. Otherwise, ping rally.
     if (is_dev_mode){
       // The pageID here is a unique key to be used for local key-value storage
-      let pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
+      const pageId = "WebScience.TotalTiming."+pageData.pageId.toString()
       console.log({[pageId]:output})
     } else {
       rally.sendPing("total-timing", output);
     }
   }, {
-    matchPatterns: ['<all_urls>']
+    matchPatterns: ["<all_urls>"]
   });
-}
-
-
-/**
- * Function: fullURLminusQueryString
- *  This function removes the query string from a URL
- * @param {string} urlString -a URL as a string
- * returns a string, the URL without the query string
- */
- function fullURLminusQueryString(urlString){
-  if(urlString){
-    return urlString.split(/[?#]/)[0];
-  } else{
-    return urlString;
-  }
-
 }
 
 /**
@@ -75,15 +59,15 @@ export async function startMeasurement ({
  * returns a string, the date formatted YYYY-MM-DD
  */
  function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+  const d = new Date(date);
+  let month = "" + (d.getMonth() + 1);
+  let day = "" + d.getDate();
+  const year = d.getFullYear();
 
   if (month.length < 2) 
-      month = '0' + month;
+      {month = "0" + month;}
   if (day.length < 2) 
-      day = '0' + day;
+      {day = "0" + day;}
 
-  return [year, month, day].join('-');
+  return [year, month, day].join("-");
 }
