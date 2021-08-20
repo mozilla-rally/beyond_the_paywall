@@ -16,9 +16,9 @@ import {sensitiveDomains, destinationDomains} from "./domains"
 export function initialize (rally, is_dev_mode) {
   // Set UserSurvey
   webScience.userSurvey.setSurvey({surveyUrl:"https://stanfordgsb.qualtrics.com/jfe/form/SV_5i37rPJXmLD1VDn",
-  reminderInterval:60,
-  reminderTitle:"Consent Survey Reminder",
-  reminderMessage:"Please complete the consent survey!",
+  reminderInterval:86400, //This should be a day, in seconds
+  reminderTitle:"Introductory Survey Reminder",
+  reminderMessage:"Please complete the Introductory Survey!",
   reminderIcon:"",
   popupIcon:"",
   surveyCompletionUrl:"http://stanford-news-study.su.domains/",
