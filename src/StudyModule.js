@@ -17,7 +17,7 @@ export function initialize (rally, is_dev_mode) {
   // Set UserSurvey
   webScience.userSurvey.setSurvey({surveyUrl:"https://stanfordgsb.qualtrics.com/jfe/form/SV_5i37rPJXmLD1VDn",
   reminderInterval:86400, //This should be a day, in seconds
-  reminderTitle:"Introductory Survey Reminder",
+  reminderTitle: "Rally survey available",
   reminderMessage:"Please complete the Introductory Survey! Click the Stanford logo in the toolbar to continue.",
   reminderIcon:"",
   popupIcon:"",
