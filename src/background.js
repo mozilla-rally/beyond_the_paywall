@@ -20,14 +20,14 @@ const rally = new Rally();
 const DEV_MODE = __ENABLE_DEVELOPER_MODE__;
 rally.initialize(
   // A sample key id used for encrypting data.
-  "sample-invalid-key-id",
+  "sgsb-beyond-the-paywall",
   // A sample *valid* JWK object for the encryption.
   {
-    "kty":"EC",
-    "crv":"P-256",
-    "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
-    "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
-    "kid":"Public key used in JWS spec Appendix A.3 example"
+    "crv": "P-256",
+    "kid": "sgsb-beyond-the-paywall",
+    "kty": "EC",
+    "x": "sA0TUNoyo8jGrZgIFa4_8XKYL70GdjH0jniSmGtTw4w",
+    "y": "YQwnO-ExsKc8c-fUSkqZ-ud11Ds2XkEYJGoR4-926Fw"
   },
   // The following constant is automatically provided by
   // the build system.
