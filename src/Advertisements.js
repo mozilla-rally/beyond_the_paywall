@@ -39,7 +39,7 @@ export async function startMeasurement ({
     matches: contentScriptMatches,
     js: [
       {
-        file: "/src/content-scripts/page-ads.js"
+        file: "/dist/content-scripts/page-ads.js"
       }
       ],
     runAt: "document_start"
