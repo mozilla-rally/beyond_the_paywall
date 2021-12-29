@@ -30,5 +30,6 @@ This repository contains the extension code for Greg Martin and Shoshana Vasserm
     * If you click "Inspect", you'll be guided to a debugging site for your extension
     * The data should be available under Storage >  Extension Storage > moz-extension://......
     * If you want to dump the current data, type `let data = await browser.storage.local.get()` in the debugging console, and then print the `data` variable. You can copy the object from there
+        * Note: This command must be run from the `about:debugging` -> Extension Console.  It won't work from the normal Firefox console.
 
 Note: These instructions are written for a MacOSX user. They'll likely be very similar for a Linux user, but not for Windows.

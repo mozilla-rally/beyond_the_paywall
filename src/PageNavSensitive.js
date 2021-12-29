@@ -41,6 +41,7 @@ export async function startMeasurement ({
       "userId" : ""+surveyUserID,
       "domain" : fullURLtoBaseURL(pageData.url),
       "visitDuration":  pageData.pageVisitStopTime-pageData.pageVisitStartTime,
+      "attentionDuration": pageData.attentionDuration,
       "visitStartDate": formatDate(pageData.pageVisitStartTime),
       "visitStartHour": new Date(pageData.pageVisitStartTime).getHours(),
 
