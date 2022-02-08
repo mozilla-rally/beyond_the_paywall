@@ -25,7 +25,7 @@ export const pageNavRequiredEvents = [
 ]
 
 export const pageNavSensitiveRequiredEvents = [
-  "type","userId","domain", "visitDuration","visitStartDate","visitStartHour"
+  "type","userId","domain","attentionDuration","visitDuration","visitStartDate","visitStartHour"
 ]
 
 
@@ -158,6 +158,10 @@ export const pageNavSensitiveEventProperties = {
   "visitDuration": {
     "type": "integer",
     "description": "Duration of visit in milliseconds"
+  },
+  "attentionDuration": {
+    "type": "integer",
+    "description": "duration (in ms) that the page was in attentive view"
   },
   "visitStartDate": {
     "type": "string",
