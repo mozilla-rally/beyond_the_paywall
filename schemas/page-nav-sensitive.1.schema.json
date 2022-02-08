@@ -48,7 +48,6 @@
     "type",
     "userId",
     "domain",
-    "attentionDuration",
     "visitDuration",
     "visitStartDate",
     "visitStartHour"
