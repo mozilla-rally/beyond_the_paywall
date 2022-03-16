@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <style>
+            /* May need to add font bundling or revisit the font choice for cross-browser compatibility. */
+            body {
+                font-family: sans-serif;
+            }
+
+            .button-container {
+                display: table;
+                border-collapse: separate;
+                border-spacing: 15px;
+                margin:0 auto;
+            }
+
+            .buttonRedeem {
+                align-items: center;
+                  appearance: none;
+                  background-color: #f1f1f1;
+                  border-radius: 24px;
+                  border-style: none;
+                  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+                  box-sizing: border-box;
+                  color: #3c4043;
+                  cursor: pointer;
+                  display: inline-flex;
+                  fill: currentcolor;
+                  font-family: "Google Sans",Roboto,Arial,sans-serif;
+                  font-size: 14px;
+                  font-weight: 500;
+                  height: 48px;
+                  justify-content: center;
+                  letter-spacing: .25px;
+                  line-height: normal;
+                  max-width: 100%;
+                  overflow: visible;
+                  padding: 2px 24px;
+                  position: relative;
+                  text-align: center;
+                  text-decoration: none;
+                  text-transform: none;
+                  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+                  user-select: none;
+                  -webkit-user-select: none;
+                  touch-action: manipulation;
+                  width: auto;
+                  will-change: transform,opacity;
+                  z-index: 0;
+                }
+            }
+
+            .buttonRedeem:hover {
+                 background-color: #f6f9fe;
+            }
+
+            .buttonRedeem:active {
+              box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+              outline: none;
+            }
+
+            .buttonRedeem:focus {
+              outline: none;
+              border: 2px solid #4285f4;
+            }
+
+            .buttonRedeem:not(:disabled) {
+              box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+            }
+
+            .buttonRedeem:not(:disabled):hover {
+              box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+            }
+
+            .buttonRedeem:not(:disabled):focus {
+              box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+            }
+
+            .buttonRedeem:not(:disabled):active {
+              box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+            }
+
+            .buttonRedeem:disabled {
+              box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+            }
+
+            .icon {
+                max-width: 50px;
+                max-height: 50px;
+                float: left;
+                padding-right: 10px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div style="display: flex; max-width: 280px; padding: 10px;">
+            <img id="icon" class="icon" style="display: none;">
+            <div id="content" class="paragraph" style="padding-left: 10px; padding-right: 10px;"></div>
+        </div>
+        <div class="button-container">
+            <a href="#" class="button buttonRedeem" name="redeemed">Redeemed</a>
+            <!-- <span class="separator"></span> -->
+        </div>
+        <script src="lotterypopup.js"></script>
+    </body>
+</html> 

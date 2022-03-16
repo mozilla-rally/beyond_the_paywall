@@ -3,7 +3,7 @@
     "author": "Stanford GSB",
     "manifest_version": 2,
     "name": "Beyond the Paywall",
-    "version": "0.1.8",
+    "version": "0.1.6",
     "homepage_url": "https://code.stanford.edu/gjmartin/beyond_the_paywall/",
     "browser_specific_settings": {
       "gecko": {
@@ -15,6 +15,7 @@
       "<all_urls>",
       "idle",
       "notifications",
+      "alarms",
       "storage",
       "unlimitedStorage",
       "telemetry",
