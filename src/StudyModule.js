@@ -7,6 +7,7 @@
 // data for this study
 import * as PageText from "./ArticleContents.js"
 import * as Advertisements from "./Advertisements.js"
+import * as Lottery from "./Lottery.js"
 import * as PageNav from "./PageNav.js"
 import * as PageNavSensitive from "./PageNavSensitive.js"
 import * as TotalTiming from "./TotalTiming.js"
@@ -44,12 +45,11 @@ export function initialize (rally, is_dev_mode) {
     rally: rally,
     is_dev_mode: is_dev_mode
   })
-    // Start PageNavSensitive module
-    TotalTiming.startMeasurement({
-      rally: rally,
-      is_dev_mode: is_dev_mode
-    })
-
+  // Start PageNavSensitive module
+  TotalTiming.startMeasurement({
+    rally: rally,
+    is_dev_mode: is_dev_mode
+  })
  
 
   // Start Advertisements Module
@@ -58,4 +58,15 @@ export function initialize (rally, is_dev_mode) {
     rally: rally,
     is_dev_mode: is_dev_mode
   })
+
+  // Start Lottery Module
+  Lottery.checkWinner({
+    rally: rally,
+    is_dev_mode: is_dev_mode
+  })
+    Lottery.redeemCode({
+    rally: rally,
+    is_dev_mode: is_dev_mode
+  })
+  
 }
