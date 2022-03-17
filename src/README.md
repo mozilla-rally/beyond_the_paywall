@@ -20,6 +20,11 @@ This directory contains content-scripts, which are the only scripts that can act
 
 Currently (5/11/21), the extension has one custom content script in use, and that's `page-ads.js`.  The other content scripts come from Mozilla's `web-science` repo.
 
+## `/browser-action-assets`
+
+This directory contains assets that pertain to the behavior of the existing browser-action under the condition that a user wins a weekly lottery drawing and redeems the code. See `Lottery.js` for more information.
+
+
 ## `/web-science`
 
 This directory contains a copy of Mozilla's [Web Science repository](https://github.com/mozilla-rally/web-science). I've found it difficult and time consuming to update the extension code to interface with this directory, and so that's why it is saved here as a point-in-time clone.
@@ -35,6 +40,10 @@ This file interfaces with Web Science's `PageText` module to obtains page text d
 ## `PageNav.js`
 
 Similar to `ArticleContents.js`,  this file interfaces with Web Science's `PageNavigation` module.  A listener is defined here to save data from that module.
+
+## `Lottery.js`
+
+This file contains two functions that call separate API endpoints we have created and hosted on AWS. One checks whether a particular user is a winner in a weekly lottery and if so, alerts the user through a Notification and a change in the browser-action icon and content, providing an Amazon redeem code. The other function waits for a winning user to click on a button labeled "Redeemed" in the modified browser-action content to indicate to us that the code has been redeemed and to turn off the Notification and return the browser-action to the default icon and content.    
 
 
 ## `PageNavSensitive.js`
