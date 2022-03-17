@@ -114,7 +114,7 @@ export async function checkWinner ({
   const surveyUserID = await webScience.userSurvey.getSurveyId() // the User ID
   console.log("The UserID is " + surveyUserID)
 
-  var lottery_interval = 1; // how often lottery results checked (in minutes)
+  var lottery_interval = 1440; // how often lottery results checked (in minutes)
   var lottery_delay = 0.5; // when the lottery results are first checked (in minutes)
   console.log("Lottery will be checked every " + lottery_interval + " minutes")
   var lotteryAlarm = "lottery-alarm"; // name of lottery alarm
