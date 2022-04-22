@@ -36,6 +36,7 @@ let initialized = false
  * @param {string} action - Which action to execute ("fetch" or "update")
  */
 async function callAPI( userID, action ) {
+  let url;
   if (action == "fetch") {
     url = "https://oz6ke1zh2h.execute-api.us-west-2.amazonaws.com/default/gjmartin-rally"
   } else if (action == "update") {
@@ -45,7 +46,7 @@ async function callAPI( userID, action ) {
   }
 
   const response = await fetch(url, { // fetch results or update status from API
-    method: 'POST', //
+    method: "POST", //
     body: JSON.stringify({"userID":userID})
   });
 
@@ -55,7 +56,7 @@ async function callAPI( userID, action ) {
     return message
   }
 
-  results = await response.json(); // fetch JSON
+  const results = await response.json(); // fetch JSON
   console.debug(action + " executed")
   return results;
 }
@@ -92,7 +93,7 @@ export async function checkWinner ({
 }) {
   // If this module has already been initialized, don't do it again
   if (initialized) {
-    console.debug('already')
+    console.debug("already")
     return
   }
   initialized = true
@@ -101,29 +102,29 @@ export async function checkWinner ({
   const surveyUserID = await webScience.userSurvey.getSurveyId() // the User ID
   console.debug("The UserID is " + surveyUserID)
 
-  var lottery_interval = 1440; // how often lottery results checked (in minutes)
-  var lottery_delay = 0.5; // when the lottery results are first checked (in minutes)
+  const lottery_interval = 1440; // how often lottery results checked (in minutes)
+  const lottery_delay = 0.5; // when the lottery results are first checked (in minutes)
   console.debug("Lottery will be checked every " + lottery_interval + " minutes")
-  var lotteryAlarm = "lottery-alarm"; // name of lottery alarm
-  var winnerNotification = "winner-notification"; // name of winner notification
+  const lotteryAlarm = "lottery-alarm"; // name of lottery alarm
+  const winnerNotification = "winner-notification"; // name of winner notification
   browser.alarms.create(lotteryAlarm, {periodInMinutes: lottery_interval, delayInMinutes: lottery_delay}); // create alarm for checking lottery results
 
   browser.alarms.onAlarm.addListener(function(alarm) { // check lottery results when alarm goes off
     if (alarm.name == lotteryAlarm) {
       // Run Fetch
       callAPI( surveyUserID, "fetch" ).then(lotteryresults => {
-        if (lotteryresults['statusCode'] !== 200) { // there was an error
+        if (lotteryresults["statusCode"] !== 200) { // there was an error
           console.error("There was an error!")
-        } else if (lotteryresults['data']['isWinner']) { // the user is a winner
+        } else if (lotteryresults["data"]["isWinner"]) { // the user is a winner
           console.debug(surveyUserID + " is a winner!")
 
           // Set Redeem Code
-          const redeemCode = lotteryresults['data']['giftCode']
+          const redeemCode = lotteryresults["data"]["giftCode"]
           set("redeemCode", redeemCode)
           console.debug("The redeem code is " + redeemCode)
           
           // Set Redeem Status
-          const redeemed = lotteryresults['data']['redeemed']
+          const redeemed = lotteryresults["data"]["redeemed"]
 
           // Send Alerts
           if (!redeemed) { // user has not yet redeemed code
@@ -145,13 +146,13 @@ export async function checkWinner ({
           
         } else { // the user did not win
           console.debug(surveyUserID + " did not win.")
-        };
+        }
       });
     } else {
       console.debug("Different alarm called")
     }
   });
-};
+}
 
 /**
  * Updates user redemption status via external API and turns off alerts after "Redeemed" button used.
@@ -179,5 +180,5 @@ export async function redeemCode ({
     console.debug("Notification cleared")
   }, { type: "WebScience.redeemed" })
 
-};
+}
 
