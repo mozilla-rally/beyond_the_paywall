@@ -15,6 +15,7 @@
       "<all_urls>",
       "idle",
       "notifications",
+      "alarms",
       "storage",
       "unlimitedStorage",
       "telemetry",
