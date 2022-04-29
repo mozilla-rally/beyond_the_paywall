@@ -1,6 +1,6 @@
 {
   "name": "BeyondThePaywall",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --config-enable-developer-mode",
