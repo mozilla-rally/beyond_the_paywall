@@ -137,8 +137,8 @@ export async function checkWinner ({
             console.debug("Notification launched");
 
             // Set up browserAction alert
-            browser.browserAction.setIcon({path: "src/browser-action-assets/dollar.png"}); // change extension logo from Stanford icon to dollar sign
-            browser.browserAction.setPopup({popup: "src/browser-action-assets/lotterypopup.html"}); // change popup to HTML page
+            browser.browserAction.setIcon({path: "dist/browser-action-assets/dollar.png"}); // change extension logo from Stanford icon to dollar sign
+            browser.browserAction.setPopup({popup: "dist/browser-action-assets/lotterypopup.html"}); // change popup to HTML page
             console.debug("browserAction launched")
           } else { // user already redeemed code
             console.debug("User already redeeemed code")
