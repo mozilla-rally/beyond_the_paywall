@@ -76,9 +76,9 @@ async function set(key, value) {
  * @private
  */
 function setPopupToNoPromptPage() {
-    browser.browserAction.setIcon({path: "src/browser-action-assets/icon.png"});
+    browser.browserAction.setIcon({path: "dist/browser-action-assets/icon.png"});
     browser.browserAction.setPopup({
-        popup: browser.runtime.getURL("src/browser-action-assets/userSurvey.popupNoPrompt.html")
+        popup: browser.runtime.getURL("dist/browser-action-assets/userSurvey.popupNoPrompt.html")
     });
 }
 
