@@ -1,35 +1,35 @@
-  {
-    "description": "Local News Demand Study",
-    "author": "Stanford GSB",
-    "manifest_version": 2,
-    "name": "Beyond the Paywall",
-    "version": "0.1.11",
-    "homepage_url": "https://code.stanford.edu/gjmartin/beyond_the_paywall/",
-    "browser_specific_settings": {
-      "gecko": {
-        "id": "beyond-the-paywall@rally.mozilla.org",
-        "strict_min_version": "87.0"
-      }
-    },
-    "permissions": [
-      "<all_urls>",
-      "idle",
-      "notifications",
-      "alarms",
-      "storage",
-      "unlimitedStorage",
-      "telemetry",
-      "webNavigation",
-      "webRequest",
-      "webRequestBlocking"
-    ],
-    "icons": {
-      "38": "icon.png"
-    },
-    "browser_action": {},
-    "background": {
-      "scripts": [
-        "dist/background.js"
-      ]
+{
+  "description": "Local News Demand Study",
+  "author": "Stanford GSB",
+  "manifest_version": 2,
+  "name": "Beyond the Paywall",
+  "version": "0.1.11",
+  "homepage_url": "https://code.stanford.edu/gjmartin/beyond_the_paywall/",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "beyond-the-paywall@rally.mozilla.org",
+      "strict_min_version": "87.0"
     }
+  },
+  "permissions": [
+    "<all_urls>",
+    "idle",
+    "notifications",
+    "alarms",
+    "storage",
+    "unlimitedStorage",
+    "telemetry",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "icons": {
+    "38": "icon.png"
+  },
+  "browser_action": {},
+  "background": {
+    "scripts": [
+      "dist/background.js"
+    ]
   }
+}
