@@ -28,6 +28,7 @@ module.exports = {
     "package-lock.json",
     "package.json",
     "README.md",
+    "RELEASE_PROCESS.md",
     "rollup.config.*",
     "web-ext-config.js",
     "public/**/*.map",
