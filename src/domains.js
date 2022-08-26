@@ -277,8 +277,6 @@ export const destinationDomains = [
 "9to5mac.com",
 "MyRye.com",
 "OnSachem.com",
-"Online + monthly print edition",
-"Spanish language",
 "a16z.com",
 "a2indy.com",
 "abajournal.com",
