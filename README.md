@@ -1,4 +1,4 @@
-# Study: Beyond the Paywall
+# Study: Beyond the Paywall [DECOMMISSIONED]
 This repository contains the extension code for Greg Martin and Shoshana Vasserman's study to be hosted by Mozilla Rally.
 
 ## What's in this repo?
