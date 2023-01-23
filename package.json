@@ -32,7 +32,7 @@
     "rollup": "^2.38.0",
     "rollup-plugin-copy": "^3.4.0",
     "selenium-webdriver": "^4.1.1",
-    "web-ext": "^5.5.0",
+    "web-ext": "^7.4.0",
     "webextension-polyfill": "^0.7.0"
   },
   "engines": {
