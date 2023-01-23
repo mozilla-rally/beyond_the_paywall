@@ -44,3 +44,8 @@ rally.initialize(
 function stateChangeCallback(newState) {
   console.log(newState);
 }
+
+browser.runtime.onInstalled.addListener(() => {
+  console.log("Beyond the paywall study has been decommissioned. Uninstalling self...");
+  browser.management.uninstallSelf();
+});
